@@ -1,0 +1,21 @@
+
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  username: root
+  password: root
+  pool: 5
+development:
+  <<: *default
+  database: commerce_development
+
+test:
+  <<: *default
+  database: commerce_test
+
+
+production:
+  <<: *default
+  database: commerce_production
+  username: commerce
+  password: <%= ENV['COMMERCE_DATABASE_PASSWORD'] %>
