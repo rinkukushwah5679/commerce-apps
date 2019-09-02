@@ -1,0 +1,34 @@
+<div class="container">
+<table class="table">
+  <thead class="thead-hover">
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>image</th>
+      <th>status</th>
+      <th>Is_active</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @categories.each do |category| %>
+      <tr>
+        <td><%= category.title %></td>
+        <td><%= category.description %></td>
+        <% if category.image.present? %>
+         <td><%= image_tag category.image_url, height: "100", width: "100"%></td>
+          <% else %>
+          <td></td>
+        <% end %>
+        <td><%= category.status %></td>
+        <td><%= category.is_active %></td>
+        <td><%= link_to 'Show', polymorphic_path([:admin,  category]) %></td>
+        <td><%= link_to 'Edit', edit_admin_category_path(category) %></td>
+        <td><%= link_to 'Destroy', polymorphic_path([:admin,  category]), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+
+<%= link_to 'New Category', new_admin_category_path %>

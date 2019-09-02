@@ -1,0 +1,52 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
+<li class="nav-item">
+  <a class="navbar-brand" href="javascript:void(0)">Commerce</a>
+  </li>
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navb">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/">Home</a>
+      </li>
+      <li class="nav-item">
+      <a class="nav-link" href="/admin/products/new">New Product</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/categories/new">New Category</a>
+      </li>
+      <li class="nav-item">
+       <% if user_signed_in? %>
+       <% if current_user[:role] == "admin" %>
+        <a class="nav-link" href="/admin">admin</a>
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/users/sign_out">Sign Out</a>
+        </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/users/sign_up">Sign Up</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/users/sign_in">Login</a>
+      <% end %>
+      </li>
+      <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        Filter Category
+      </a>
+      <div class="dropdown-menu">
+        <% Category.all.each do |category| %>
+        <a class="dropdown-item" href="/"><%= category.title %></a>
+        <% end %>
+      </div>
+    </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="text" placeholder="search ">
+      <a class="btn btn-success my-2 my-sm-0" href="#"  type="button">Search</a>
+    </form>
+  </div>
+</nav>

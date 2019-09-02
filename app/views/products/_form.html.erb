@@ -1,0 +1,57 @@
+  <div class ="container">
+     <div class="row">
+<%= form_for([:admin,@product]) do |form| %>
+  <% if product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+      <ul>
+      <% product.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+      <label for="category">Category</label><br>
+      <%= form.select(:category_id, Category.all.collect {|u| [u.title, u.id]},{:prompt => 'Select category'}, :class=>"form-control" ) %>
+  </div>
+  <div class="field">
+    <label for="title">title</label>
+    <%= form.text_field :title, class: "form-control" %>
+  </div>
+  <div class="field">
+    <label for="description">description</label>
+    <%= form.text_area :description, class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <label for="image">image</label>
+    <%= form.file_field :image, class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <label for="price">price</label>
+    <%= form.text_field :price, class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <label for="size">size</label>
+    <%= form.text_field :size, class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <label for="is_active">is_active</label>
+    <%= form.check_box :is_active, class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <label for="status">status</label>
+    <%= form.text_field :status, class: "form-control" %>
+  </div>
+
+
+  <div class="actions">
+    <%= form.submit'create',class: "btn btn-success" %>
+  </div>
+<% end %>

@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @category.title %>
+</p>
+<p>
+  <strong>Description:</strong>
+  <%= @category.description %>
+</p>
+<p>
+  <strong>Image:</strong>
+  <%= @category.image %>
+</p>
+<p>
+  <strong>Status:</strong>
+  <%= @category.status %>
+</p>
+<p>
+  <strong>Is_active:</strong>
+  <%= @category.is_active %>
+</p>
+
+<%= link_to 'Edit', edit_admin_category_path(@category) %> |
+<%= link_to 'Back', admin_categories_path %>
