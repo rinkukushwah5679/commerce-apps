@@ -4,80 +4,61 @@
     <title>CommerceApp</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
   </head>
-
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
-  <li class="nav-item">
-   <a class="navbar-brand" href="javascript:void(0)">Commerce</a>
-  </li>
-  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navb">
-    <ul class="navbar-nav mr-auto">
+    <nav class="navbar navbar-expand-lg mb-2 bg-info text-white" >
       <li class="nav-item">
-        <a class="nav-link" href="/">Home</a>
+        <a class="navbar-brand" href="/">Commerce</a>
       </li>
-      <li class="nav-item">
-      </li>
-      <li class="nav-item">
-      </li>
-      <li class="nav-item">
-       <% if user_signed_in? %>
-       <% if current_user[:role] == "admin" %>
-        <a class="nav-link" href="/admin">admin</a>
-        <% end %>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/users/sign_out">Sign Out</a>
-        </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/users/sign_up">Sign Up</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/users/sign_in">Login</a>
-      <% end %>
-      </li>
-      <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-        Filter Category
-      </a>
-      <div class="dropdown-menu">
-        <% Category.all.each do |category| %>
-        <a class="dropdown-item" href="/"><%= category.title %></a>
-        <% end %>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb">
+      <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navb">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item"<% if params[:controller] == "home" && params[:action] == "index" %>"active"<% else %><% end %>><a class="nav-link" href="/">Home</a></li>
+          <% if user_signed_in? %>
+            <% if current_user[:role] == "admin" %>
+            <% end %>
+            <li class="nav-item"><a class="nav-link" href="/users/sign_out"><span    class="glyphicon glyphicon-log-out"></span> Sign Out</a></li>
+          <% else %>
+            <li class="nav-item <% if params[:controller] == "devise/registrations" && params[:action] == "new" %>active<% else %><% end %>"><a class="nav-link" href="/users/sign_up"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li class="nav-item"<% if params[:controller] == "devise/sessions" && params[:action] == "new" %>"active"<% else %><% end %>><a class="nav-link" href="/users/sign_in"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          <% end %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown">
+            Filter Category
+            </a>
+            <div class="dropdown-menu">
+              <% Category.all.each do |category| %>
+              <a class="dropdown-item" href="/category_details/<%= category.id%>"><%= category.title %></a>
+              <% end %>
+            </div>
+          </li>
+          <li class="nav-item">
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0" >
+          <input class="form-control mr-sm-2" type="text" placeholder="Search product">
+          <button class="btn btn-primary my-2 my-sm-0" href="#" type="button">Search</button>
+        </form>
       </div>
-    </li>
-      <li class="nav-item">
-      </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search">
-      <button class="btn btn-success my-2 my-sm-0" type="button">Search</button>
-    </form>
-  </div>
-</nav>
-
+    </nav>
     <%= yield %>
   </body>
 </html>
 <div class="FlashNotice">
   <% flash.each do |key, value| %>
-    <div class="<%= flash_class(key) %> fade in">
-      <a href="#" data-dismiss="alert" class="close">×</a>
-      <%= value %>
-    </div>
+  <div class="<%= flash_class(key) %> fade in">
+    <a href="#" data-dismiss="alert" class="close">×</a>
+    <%= value %>
+  </div>
   <% end %>
 </div>
-
 <style>
-.FlashNotice .alert{
- margin-bottom: 0px;
-}
+  .FlashNotice .alert{
+  margin-bottom: 0px;
+  }
 </style>
-

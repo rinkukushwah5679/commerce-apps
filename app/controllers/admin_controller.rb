@@ -4,10 +4,10 @@ class AdminController < ApplicationController
  
   def index
    if params[:search].present?
-      @products = Product.where("lower(title) LIKE :prefix OR lower(description) LIKE :prefix", prefix: "%#{params[:search].downcase}%")
+      @products = Product.where("lower(title) LIKE :prefix OR lower(description) LIKE :prefix",prefix: "%#{params[:search].downcase}%")
     elsif params[:category_id].present?
       @cat = Category.find(params[:category_id])
-      @products = @cat.productes
+      @products = @cat.products
     else
       @products = Product.all
     end
