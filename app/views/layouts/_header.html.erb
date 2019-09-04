@@ -32,21 +32,6 @@
         <a class="nav-link" href="/users/sign_in">Login</a>
         <% end %>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="/" id="navbardrop"   data-toggle="dropdown">
-        Filter Category
-        </a>
-        <div class="dropdown-menu" >
-          <% Category.all.each do |category| %>
-          <a class="dropdown-item" href=""><%= category.title %></a>
-          <% end %>
-        </div>
-      </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="search ">
-      <a class="btn btn-primary my-2 my-sm-0" href="" type="button">Search</a>
-    </form>
   </div>
 </nav>
 <div class="FlashNotice">

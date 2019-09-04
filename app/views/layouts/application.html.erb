@@ -40,13 +40,113 @@
           <li class="nav-item">
           </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0" >
-          <input class="form-control mr-sm-2" type="text" placeholder="Search product">
-          <button class="btn btn-primary my-2 my-sm-0" href="#" type="button">Search</button>
+        <form class="form-inline my-2 my-lg-0" action="/home/index" >
+          <input class="form-control mr-sm-2" name="search" type="text" placeholder="Search product">
+          <button type="sumbit" class="btn btn-primary my-2 my-sm-0" type="button">Search</button>
         </form>
       </div>
     </nav>
     <%= yield %>
+
+<footer class="page-footer font-small indigo">
+
+   <!-- Footer Links -->
+   <div class="container text-center text-md-left">
+
+     <!-- Grid row -->
+     <div class="row">
+
+       <!-- Grid column -->
+       <div class="col-md-3 mx-auto">
+
+         <!-- Links -->
+         <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Buyers
+Section</h5>
+
+         <ul class="list-unstyled">
+           <li>
+             <a href="/home/bsupplier">Search Product & Suppliers</a>
+           </li>
+           <li>
+             <a href="/home/brequirement">Post Your Requirements</a>
+           </li>
+
+       </div>
+       <!-- Grid column -->
+
+       <hr class="clearfix w-100 d-md-none">
+
+       <!-- Grid column -->
+       <div class="col-md-3 mx-auto">
+
+         <!-- Links -->
+         <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Seller
+Section</h5>
+
+         <ul class="list-unstyled">
+           <li>
+             <a href="/home/sadvertise">Advertise Your Profile</a>
+           </li>
+           <li>
+             <a href="/home/spost">Post Your Product</a>
+           </li>
+           <li>
+       </div>
+       <!-- Grid column -->
+
+       <hr class="clearfix w-100 d-md-none">
+
+       <!-- Grid column -->
+       <div class="col-md-3 mx-auto">
+
+         <!-- Links -->
+         <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Customer
+Tool Kit</h5>
+
+         <ul class="list-unstyled">
+           <li>
+             <a href="/home/cbuy">Product You Buy</a>
+           </li>
+           <li>
+             <a href="/home/csection">Customer Section</a>
+           </li>
+           
+       </div>
+       <!-- Grid column -->
+
+       <hr class="clearfix w-100 d-md-none">
+
+       <!-- Grid column -->
+       <div class="col-md-3 mx-auto">
+
+         <!-- Links -->
+         <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Others</h5>
+
+         <ul class="list-unstyled">
+           <li>
+             <a href="/home/about">About Us</a>
+           </li>
+           <li>
+             <a href="/home/contact">Contact Us</a>
+           </li>
+         </ul>
+       </div>
+       <!-- Grid column -->
+
+     </div>
+     <!-- Grid row -->
+
+   </div>
+   <!-- Footer Links -->
+
+   <!-- Copyright -->
+   <div class="footer-copyright text-center py-3">© 2019 Copyright:
+     <a href="https://bitterntec.com/"> www.bitterntec.com</a>
+   </div>
+   <!-- Copyright -->
+
+</footer>
+
   </body>
 </html>
 <div class="FlashNotice">
