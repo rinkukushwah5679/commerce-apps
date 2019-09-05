@@ -35,7 +35,7 @@ class WishlistsController < ApplicationController
         format.json { render json: @wishlist.errors, status: :unprocessable_entity }
       end
     end
-  end
+  end 
 
   # PATCH/PUT /wishlists/1
   # PATCH/PUT /wishlists/1.json

@@ -4,7 +4,14 @@ class CartsController < ApplicationController
   # GET /carts
   # GET /carts.json
   def index
-    @carts = Cart.all
+    @carts = Cart.all 
+    product_ids = current_user.carts.map(&:product_id)
+    @products = Product.where(id: product_ids)
+     if user_signed_in?
+      @carts = current_user.carts 
+     else
+      redirect_to "/users/sign_in", notice: "you need to sign in or sign up"
+     end  
   end
 
   # GET /carts/1

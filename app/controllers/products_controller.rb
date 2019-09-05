@@ -62,6 +62,52 @@ class ProductsController < ApplicationController
     end
   end
 
+  def add_wishlist
+    @product = Product.find(params[:product_id])
+    if user_signed_in?
+      existing_wishlist = current_user.wishlists.where(product_id: @product.id)
+      if existing_wishlist.present?
+        redirect_back fallback_location: root_path, notice: "Product is already in your wishlist"
+      else
+        current_user.wishlists.create(product_id: @product.id)
+        redirect_to root_path, notice: "Product has been added in to your wishlist"
+      end
+    else
+      redirect_to "/users/sign_in", notice: "you need to sign in or sign up"
+    end
+  end
+
+  def remove_wishlist
+    @product = Product.find(params[:product_id])
+    current_user.wishlists.where(product_id: @product.id).first.destroy
+    redirect_to "/wishlist"
+  end
+
+  def wishlist
+    product_ids = current_user.wishlists.map(&:product_id)
+    @products = Product.where(id: product_ids)
+  end
+  def add_cart
+    @product = Product.find(params[:product_id])
+    if user_signed_in?
+      existing_cart = current_user.carts.where(product_id: @product.id)
+      if existing_cart.present?
+        redirect_back fallback_location: root_path, notice: "Cart is already in your cart"
+      else
+        current_user.carts.create(product_id: @product.id)
+        redirect_to carts_path, notice: "Cart has been added in to your cart"
+      end
+    else
+      redirect_to "/users/sign_in", notice: "you need to sign in or sign up"
+    end
+  end
+
+  def remove_cart
+    @product = Product.find(params[:product_id])
+    current_user.carts.where(product_id: @product.id).first.destroy
+    redirect_to "/carts"
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product
@@ -70,6 +116,6 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:title, :image, :price, :size, :is_active, :status, :description, :category_id)
+      params.require(:product).permit(:title, :image, :price, :size, :is_active, :status, :description, :category_id, :discount_price)
     end
 end

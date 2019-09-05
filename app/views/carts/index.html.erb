@@ -1,29 +1,41 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Carts</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>User</th>
-      <th>Product</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @carts.each do |cart| %>
-      <tr>
-        <td><%= cart.user_id %></td>
-        <td><%= cart.product_id %></td>
-        <td><%= link_to 'Show', cart %></td>
-        <td><%= link_to 'Edit', edit_cart_path(cart) %></td>
-        <td><%= link_to 'Destroy', cart, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<div class="container">
+  <!-- <h3 class="h3">shopping Demo-1 </h3> -->
+  <div class="row">
+    <% @products.each do |product| %>
+      <div class="col-md-3 col-sm-6" style="margin-bottom: 25px;">
+        <div class="product-grid">
+          <div class="product-image">
+            <a href="/product_details/<%= product.id%>">
+            <% if product.image.present? %>
+              <%= image_tag product.image_url, class: "pic-1", style: "height:324px;width:253px"%>
+            <% else %>
+              <img class="pic-1" src="http://bestjquery.com/tutorial/product-grid/demo9/images/img-7.jpg">
+            <% end %>
+            </a>
+            <ul class="social">
+            </ul>
+            <span class="product-new-label">Sale</span>
+            <span class="product-discount-label"><%= product.price.to_i > 0 ? product.discount_percentage : 0 %></span>
+          </div>
+          <ul class="rating">
+            <li class="fa fa-star"></li>
+            <li class="fa fa-star"></li>
+            <li class="fa fa-star"></li>
+            <li class="fa fa-star"></li>
+            <li class="fa fa-star disable"></li>
+          </ul>
+          <div class="product-content">
+            <h3 class="title"><a href="#"><%= product.title %></a></h3>
+            <div class="price">$<%= product.try(:discount_price).to_f %>
+              <span>$<%= product.try(:price).to_f %></span>
+            </div>
+            <%= link_to 'Remove Product From Cart', product_remove_cart_path(product), class: "add-to-cart"%>
+          </div>
+        </div>
+      </div>
+      <br>
+      <br>
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Cart', new_cart_path %>
+  </div>
+  <br>
+</div>

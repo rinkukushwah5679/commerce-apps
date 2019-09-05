@@ -14,3 +14,6 @@
  *= require_self
  */
  @import "bootstrap";
+.fade:not(.show) {
+   opacity: 1; 
+}
