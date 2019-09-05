@@ -1,13 +1,13 @@
 <div class="container">
   <!-- <h3 class="h3">shopping Demo-1 </h3> -->
   <div class="row">
-    <% @products.each do |product| %>
+    <% current_user.carts.each do |cart| %>
       <div class="col-md-3 col-sm-6" style="margin-bottom: 25px;">
         <div class="product-grid">
           <div class="product-image">
-            <a href="/product_details/<%= product.id%>">
-            <% if product.image.present? %>
-              <%= image_tag product.image_url, class: "pic-1", style: "height:324px;width:253px"%>
+            <a href="/product_details/<%= cart.product.id%>">
+            <% if cart.product.image.present? %>
+              <%= image_tag cart.product.image_url, class: "pic-1", style: "height:324px;width:253px"%>
             <% else %>
               <img class="pic-1" src="http://bestjquery.com/tutorial/product-grid/demo9/images/img-7.jpg">
             <% end %>
@@ -15,7 +15,7 @@
             <ul class="social">
             </ul>
             <span class="product-new-label">Sale</span>
-            <span class="product-discount-label"><%= product.price.to_i > 0 ? product.discount_percentage : 0 %></span>
+            <span class="product-discount-label"><%= cart.product.price.to_i > 0 ? cart.product.discount_percentage : 0 %></span>
           </div>
           <ul class="rating">
             <li class="fa fa-star"></li>
@@ -25,13 +25,14 @@
             <li class="fa fa-star disable"></li>
           </ul>
           <div class="product-content">
-            <h3 class="title"><a href="#"><%= product.title %></a></h3>
-            <div class="price">$<%= product.try(:discount_price).to_f %>
-              <span>$<%= product.try(:price).to_f %></span>
+            <h3 class="title"><a href="#"><%= cart.product.title %></a></h3>
+            <div class="price">$<%= cart.product.try(:discount_price).to_f %>
+              <span>$<%= cart.product.try(:price).to_f %></span>
             </div>
-            <%= link_to 'Remove Product From Cart', product_remove_cart_path(product), class: "add-to-cart"%>
+            <%= link_to 'Remove Product From Cart', product_remove_cart_path(cart.product), class: "add-to-cart"%>
           </div>
         </div>
+        <%= link_to "Proceed to checkout", new_cart_order_path(cart, product_id: cart.product) %>
       </div>
       <br>
       <br>
