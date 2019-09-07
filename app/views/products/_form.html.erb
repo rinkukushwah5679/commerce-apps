@@ -1,4 +1,4 @@
-<div class="row">
+<div class ="container">
   <%= form_for([:admin,@product]) do |form| %>
     <% if product.errors.any? %>
     <div id="error_explanation">
@@ -40,7 +40,7 @@
     </div>
     <div class="field">
       <label for="is_active">is_active</label>
-      <%= form.check_box :is_active, class: "form-control" %>
+      <%= form.check_box :is_active %>
     </div>
     <div class="field">
       <label for="status">status</label>

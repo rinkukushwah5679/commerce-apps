@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :reviews
   devise_for :users
   get 'home/index'
   get 'home/bsupplier'
@@ -19,10 +20,11 @@ Rails.application.routes.draw do
     get :remove_wishlist
     get :add_cart
     get :remove_cart
+    
   end
   resources :orders
   resources :carts do
-    resources :orders
+  resources :orders
   end
 
   namespace :admin, module: nil  do

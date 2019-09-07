@@ -1,0 +1,21 @@
+development:
+  # Database
+  DATABASE_ADAPTER: postgresql
+  DATABASE_USER: root
+  DATABASE_PASSWORD: root
+  DATABASE_NAME: commerce_development
+  DATABASE_HOST: localhost
+  STRIPE_PK: pk_test_G0qghRe6igOJBJ9ak9AsTMeu
+  STRIPE_SK: sk_test_ldilz6awkRKAKpdJ8KlUnt3h
+  STRIPE_CLIENT_ID: ca_CefKAEpsiwJZKJMW6mc98sgbjIjV8dPI
+
+production:
+  # Database
+  DATABASE_ADAPTER: postgresql
+  DATABASE_USER: root
+  DATABASE_PASSWORD: root
+  DATABASE_NAME: commerce_production
+  DATABASE_HOST: localhost
+  STRIPE_PK: pk_test_G0qghRe6igOJBJ9ak9AsTMeu
+  STRIPE_SK: sk_test_ldilz6awkRKAKpdJ8KlUnt3h
+  STRIPE_CLIENT_ID: ca_CefKAEpsiwJZKJMW6mc98sgbjIjV8dPI

@@ -11,5 +11,8 @@ class User < ApplicationRecord
   friendly_id :first_name, use: :slugged
   has_many :wishlists, dependent: :destroy
   has_many :carts, dependent: :destroy
+  has_many :reviews, dependent: :destroy
+  
+
         
 end

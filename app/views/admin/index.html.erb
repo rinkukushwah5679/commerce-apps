@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 <div class ="container">
 <div class="field">
-<%= form_tag "/products", :method=>"get" do %>
+<%= form_tag "/admin", :method=>"get" do %>
 <%= text_field_tag :search, nil, :placeholder=>"search product" %>
 <%= submit_tag "search", class: "btn btn-success"%>
 <% end %>

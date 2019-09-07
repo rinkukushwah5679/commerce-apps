@@ -1,21 +1,28 @@
-
 default: &default
-  adapter: postgresql
-  encoding: unicode
-  username: root
-  password: root
+  adapter: <%= ENV['DATABASE_ADAPTER'] %>
+  encoding: utf8
+  reconnect: false
   pool: 5
+  database: <%= ENV['DATABASE_NAME'] %>
+  username: <%= ENV['DATABASE_USER'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  host: <%= ENV['DATABASE_HOST'] %>
+
 development:
   <<: *default
-  database: commerce_development
-
-test:
-  <<: *default
-  database: commerce_test
-
 
 production:
   <<: *default
   database: commerce_production
-  username: commerce
-  password: <%= ENV['COMMERCE_DATABASE_PASSWORD'] %>
+  username: root
+  password: root
+# And be sure to use new-style password hashing:
+#   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
+# development:
+#   adapter: mysql2
+#   encoding: utf8
+#   reconnect: false
+#   database: gatherin_rockers
+#   pool: 5
+#   username: root
+#   password: 

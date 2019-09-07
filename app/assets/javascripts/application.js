@@ -15,6 +15,7 @@
 //= require activestorage
 //= require popper
 //= require bootstrap-sprockets
+
 setTimeout(function() {
     $('.FlashNotice').fadeOut('fast');
 }, 3000);

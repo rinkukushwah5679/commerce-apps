@@ -20,12 +20,12 @@
         <ul class="navbar-nav mr-auto">
           <li class="nav-item"<% if params[:controller] == "home" && params[:action] == "index" %>"active"<% else %><% end %>><a class="nav-link" href="/">Home</a></li>
           <% if user_signed_in? %>
-            <% if current_user[:role] == "admin" %>
-            <% end %>
-            <li class="nav-item"><a class="nav-link" href="/users/sign_out"><span    class="glyphicon glyphicon-log-out"></span> Sign Out</a></li>
+          <% if current_user[:role] == "admin" %>
+          <% end %>
+          <li class="nav-item"><a class="nav-link" href="/users/sign_out"><span    class="glyphicon glyphicon-log-out"></span> Sign Out</a></li>
           <% else %>
-            <li class="nav-item <% if params[:controller] == "devise/registrations" && params[:action] == "new" %>active<% else %><% end %>"><a class="nav-link" href="/users/sign_up"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-            <li class="nav-item"<% if params[:controller] == "devise/sessions" && params[:action] == "new" %>"active"<% else %><% end %>><a class="nav-link" href="/users/sign_in"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          <li class="nav-item <% if params[:controller] == "devise/registrations" && params[:action] == "new" %>active<% else %><% end %>"><a class="nav-link" href="/users/sign_up"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li class="nav-item"<% if params[:controller] == "devise/sessions" && params[:action] == "new" %>"active"<% else %><% end %>><a class="nav-link" href="/users/sign_in"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
           <% end %>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown">
@@ -37,27 +37,31 @@
               <% end %>
             </div>
           </li>
-
         </ul>
-        <form class="form-inline my-2 my-lg-0" action="/home/index" >
-          <input class="form-control mr-sm-2" name="search" type="text" placeholder="Search product">
-          <button type="sumbit" class="btn btn-primary my-2 my-sm-0" type="button">Search</button>
-        </form>
         <ul class="navbar-nav wishlist_nav" id="cart_nav">
           <% if user_signed_in? %>
-            <li class="nav-item">
-              <a class="nav-link" href="/wishlist"><i class="fa fa-heart"></i><span class="sr-only">(current)</span><span class="badge"><%= current_user.wishlists.count rescue nil%></a>
-            </li>
-            <li class="nav-item">
-              <a class="cart_li" href="/carts">Cart(<%= current_user.carts.count rescue nil%>)</a>
-            </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/orders">Order</a>
+          </li>
+          <% end %>
+          <form class="form-inline my-2 my-lg-0" action="/home/index" >
+            <input class="form-control mr-sm-2" name="search" type="text" placeholder="Search product">
+            <button type="sumbit" class="btn btn-primary my-2 my-sm-0" type="button">Search</button>
+          </form>
+          <% if user_signed_in? %>
+          <li class="nav-item">
+            <a class="nav-link" href="/wishlist"><i class="fa fa-heart"></i><span class="sr-only">(current)</span><span class="badge"><%= current_user.wishlists.count rescue nil%></a>
+          </li>
+          <li class="nav-item">
+            <a class="cart_li" href="/carts">Cart(<%= current_user.carts.count rescue nil%>)</a>
+          </li>
           <% else %>
-            <li class="nav-item">
-              <a class="nav-link" href="/users/sign_in"><i class="fa fa-heart"></i><span class="sr-only">(current)</span><span class="badge"><%= current_user.wishlists.count rescue nil%></a>
-            </li>
-            <li class="nav-item">
-              <a class="cart_li" href="/users/sign_in">Cart</a>
-            </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/users/sign_in"><i class="fa fa-heart"></i><span class="sr-only">(current)</span><span class="badge"><%= current_user.wishlists.count rescue nil%></a>
+          </li>
+          <li class="nav-item">
+            <a class="cart_li" href="/users/sign_in">Cart</a>
+          </li>
           <% end %>
         </ul>
       </div>
@@ -71,109 +75,85 @@
       <% end %>
     </div>
     <%= yield %>
-
-  <footer class="page-footer font-small indigo">
-
-     <!-- Footer Links -->
-     <div class="container text-center text-md-left">
-
-       <!-- Grid row -->
-       <div class="row">
-
-         <!-- Grid column -->
-         <div class="col-md-3 mx-auto">
-
-           <!-- Links -->
-           <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Buyers
-  Section</h5>
-
-           <ul class="list-unstyled">
-             <li>
-               <a href="/home/bsupplier">Search Product & Suppliers</a>
-             </li>
-             <li>
-               <a href="/home/brequirement">Post Your Requirements</a>
-             </li>
-
-         </div>
-         <!-- Grid column -->
-
-         <hr class="clearfix w-100 d-md-none">
-
-         <!-- Grid column -->
-         <div class="col-md-3 mx-auto">
-
-           <!-- Links -->
-           <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Seller
-  Section</h5>
-
-           <ul class="list-unstyled">
-             <li>
-               <a href="/home/sadvertise">Advertise Your Profile</a>
-             </li>
-             <li>
-               <a href="/home/spost">Post Your Product</a>
-             </li>
-             <li>
-         </div>
-         <!-- Grid column -->
-
-         <hr class="clearfix w-100 d-md-none">
-
-         <!-- Grid column -->
-         <div class="col-md-3 mx-auto">
-
-           <!-- Links -->
-           <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Customer
-  Tool Kit</h5>
-
-           <ul class="list-unstyled">
-             <li>
-               <a href="/home/cbuy">Product You Buy</a>
-             </li>
-             <li>
-               <a href="/home/csection">Customer Section</a>
-             </li>
-             
-         </div>
-         <!-- Grid column -->
-
-         <hr class="clearfix w-100 d-md-none">
-
-         <!-- Grid column -->
-         <div class="col-md-3 mx-auto">
-
-           <!-- Links -->
-           <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Others</h5>
-
-           <ul class="list-unstyled">
-             <li>
-               <a href="/home/about">About Us</a>
-             </li>
-             <li>
-               <a href="/home/contact">Contact Us</a>
-             </li>
-           </ul>
-         </div>
-         <!-- Grid column -->
-
-       </div>
-       <!-- Grid row -->
-
-     </div>
-     <!-- Footer Links -->
-
-     <!-- Copyright -->
-     <div class="footer-copyright text-center py-3">© 2019 Copyright:
-       <a href="https://bitterntec.com/"> www.bitterntec.com</a>
-     </div>
-     <!-- Copyright -->
-
-  </footer>
-
+    <footer class="page-footer font-small indigo">
+      <!-- Footer Links -->
+      <div class="container text-center text-md-left">
+        <!-- Grid row -->
+        <div class="row">
+          <!-- Grid column -->
+          <div class="col-md-3 mx-auto">
+            <!-- Links -->
+            <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Buyers
+              Section
+            </h5>
+            <ul class="list-unstyled">
+            <li>
+              <a href="/home/bsupplier">Search Product & Suppliers</a>
+            </li>
+            <li>
+              <a href="/home/brequirement">Post Your Requirements</a>
+            </li>
+          </div>
+          <!-- Grid column -->
+          <hr class="clearfix w-100 d-md-none">
+          <!-- Grid column -->
+          <div class="col-md-3 mx-auto">
+            <!-- Links -->
+            <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Seller
+              Section
+            </h5>
+            <ul class="list-unstyled">
+            <li>
+              <a href="/home/sadvertise">Advertise Your Profile</a>
+            </li>
+            <li>
+              <a href="/home/spost">Post Your Product</a>
+            </li>
+            <li>
+          </div>
+          <!-- Grid column -->
+          <hr class="clearfix w-100 d-md-none">
+          <!-- Grid column -->
+          <div class="col-md-3 mx-auto">
+          <!-- Links -->
+          <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Customer
+          Tool Kit</h5>
+          <ul class="list-unstyled">
+          <li>
+          <a href="/home/cbuy">Product You Buy</a>
+          </li>
+          <li>
+          <a href="/home/csection">Customer Section</a>
+          </li>
+          </div>
+          <!-- Grid column -->
+          <hr class="clearfix w-100 d-md-none">
+          <!-- Grid column -->
+          <div class="col-md-3 mx-auto">
+            <!-- Links -->
+            <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Others</h5>
+            <ul class="list-unstyled">
+              <li>
+                <a href="/home/about">About Us</a>
+              </li>
+              <li>
+                <a href="/home/contact">Contact Us</a>
+              </li>
+            </ul>
+          </div>
+          <!-- Grid column -->
+        </div>
+        <!-- Grid row -->
+      </div>
+      <!-- Footer Links -->
+      <!-- Copyright -->
+      <div class="footer-copyright text-center py-3">© 2019 Copyright:
+        <a href="https://bitterntec.com/"> www.bitterntec.com</a>
+      </div>
+      <!-- Copyright -->
+    </footer>
   </body>
 </html>
-
 <style>
   .FlashNotice .alert{
   margin-bottom: 0px;

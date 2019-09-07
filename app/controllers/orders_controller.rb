@@ -5,6 +5,7 @@ class OrdersController < ApplicationController
   # GET /orders.json
   def index
     @orders = Order.all
+    # @orders = current_user.orders  
   end
 
   # GET /orders/1
@@ -26,10 +27,25 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
+    @product = Product.find(params[:order][:product_id])
+    @cart = Cart.find(params[:order][:cart_id])
+    customer = Stripe::Customer.create({
+        email: params[:stripeEmail],
+        source: params[:stripeToken],
+      })
+    # charge = Stripe::Order.create({
+    #     customer: customer.id,
+    #     price: @product.discount_price.to_i,
+    #     description: 'Rails Stripe customer',
+        
+    #   })  
     @order = Order.new(order_params)
+    @order.customer = customer.id
+    @order.description = 'Rails Stripe customer'
 
     respond_to do |format|
       if @order.save
+        UserMailer.order_product(current_user).deliver_later
         format.html { redirect_to @order, notice: 'Order was successfully created.' }
         format.json { render :show, status: :created, location: @order }
       else
