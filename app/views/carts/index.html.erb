@@ -17,13 +17,13 @@
             <span class="product-new-label">Sale</span>
             <span class="product-discount-label"><%= cart.product.price.to_i > 0 ? cart.product.discount_percentage : 0 %></span>
           </div>
-          <ul class="rating">
+          <!-- <ul class="rating">
             <li class="fa fa-star"></li>
             <li class="fa fa-star"></li>
             <li class="fa fa-star"></li>
             <li class="fa fa-star"></li>
             <li class="fa fa-star disable"></li>
-          </ul>
+          </ul> -->
           <div class="product-content">
             <h3 class="title"><a href="#"><%= cart.product.title %></a></h3>
             <div class="price">$<%= cart.product.try(:discount_price).to_f %>

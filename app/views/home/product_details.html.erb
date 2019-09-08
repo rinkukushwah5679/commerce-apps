@@ -34,9 +34,15 @@
 						</h5>
 						<div class="action">
 							<!-- <button  class="add-to-cart btn btn-default" type="button">add to cart</button> -->
-                 
-              <%= link_to 'add to cart', product_add_cart_path(@product.id), class: "add-to-cart btn btn-default" %>
-              
+              <% if user_signed_in? %>
+                <% if current_user.carts.where(product_id: @product.id).first.present? %>
+                  <%= link_to "Proceed to checkout", new_cart_order_path(@product.carts.first.id, product_id: @product.carts.first.product), class: 'add-to-cart btn btn-default' %>
+                <% else %>
+                  <%= link_to 'add to cart', product_add_cart_path(@product.id), class: "add-to-cart btn btn-default" %>
+                <% end %>
+              <% else %>
+                <%= link_to 'add to cart', product_add_cart_path(@product.id), class: "add-to-cart btn btn-default" %>
+              <% end %>
              
               <%= link_to product_add_wishlist_path(@product.id), {:class => 'like btn btn-default','data-tip'=> 'Add to Wishlist', title: 'Add to Wishlist'} do %>
                 <span class="fa fa-heart"></span>

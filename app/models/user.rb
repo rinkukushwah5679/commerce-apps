@@ -15,5 +15,5 @@ class User < ApplicationRecord
   has_many :reviews, dependent: :destroy
   GENDER = {:male => "Male", :female => "Female"}
 
-        
+ 
 end
