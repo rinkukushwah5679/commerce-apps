@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     get :remove_cart
     
   end
-  resources :orders
+  resources :orders, only: [:index, :show, :create]
   resources :carts do
   resources :orders
   end

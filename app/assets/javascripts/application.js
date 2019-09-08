@@ -15,6 +15,7 @@
 //= require activestorage
 //= require popper
 //= require bootstrap-sprockets
+//= require jquery.ecom
 
 setTimeout(function() {
     $('.FlashNotice').fadeOut('fast');

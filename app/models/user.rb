@@ -3,6 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+  mount_uploader :image, AvatarUploader
   def is_admin?
     return true if self.role =="admin"
   end
@@ -12,7 +13,7 @@ class User < ApplicationRecord
   has_many :wishlists, dependent: :destroy
   has_many :carts, dependent: :destroy
   has_many :reviews, dependent: :destroy
-  
+  GENDER = {:male => "Male", :female => "Female"}
 
         
 end

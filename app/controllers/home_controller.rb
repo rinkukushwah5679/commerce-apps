@@ -16,6 +16,12 @@ class HomeController < ApplicationController
 
   def product_details
     @product = Product.find(params[:id])
+    @reviews = @product.reviews.to_a
+    @avg_rating = if @reviews.blank?
+      0
+    else
+      @product.reviews.average(:rating).round(2)
+    end
   end 
    
   def bsupplier

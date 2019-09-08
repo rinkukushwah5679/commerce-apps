@@ -1,6 +1,6 @@
 class Product < ApplicationRecord
 	belongs_to :category, optional: true
-  has_many :review, dependent: :destroy
+  has_many :reviews, dependent: :destroy
 	mount_uploader :image, AvatarUploader
 	has_many :carts, dependent: :destroy
 	validate :discount_after_price?

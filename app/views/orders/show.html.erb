@@ -1,79 +1,227 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+    <div class="card">
+      <div class="container-fliud">
+        <div class="wrapper row">
+          <div class="preview col-md-6">
+            
+            <div class="preview-pic tab-content">
+              <div class="tab-pane active" id="pic-1">
+                <% if @order.product.image.present? %>
+                  <%= image_tag @order.product.image_url, style: "height:309px;width:491px"%>
+                <% else %>
+                  <img src="http://bestjquery.com/tutorial/product-grid/demo9/images/img-7.jpg" />
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <div class="details col-md-6">
+            <h3 class="product-title"><%= @order.product.try(:title) %></h3>
+            <div class="rating">
+              <div class='star-rating' data-score="<%= @avg_rating %>"></div>
+              <span class="review-no"><%= "#{@reviews.try(:size)}" %> reviews</span>
+            </div>
+            <%= form_for (Review.new) do |f| %>
+              <% if current_user.present? %>
+                <%= f.hidden_field :user_id, value: current_user.id %>
+                <%= f.hidden_field :product_id, value: @order.product.id %>
+               <% end %>
+              
+              <div id="rating-form" class="field col-lg-12 from-group">
+                <label>Rating</label>
+              </div>
 
-<p>
-  <strong>User:</strong>
-  <%= @order.user_id %>
-</p>
+              <div class="field col-lg-12 from-group">
+                <%= f.label :comment %>
+                <%= f.text_area :comment , :class => "form-control" %>
+              </div>
 
-<p>
-  <strong>Cart:</strong>
-  <%= @order.cart_id %>
-</p>
+              <div class="field col-lg-12 from-group text-center ">
+                <%= f.submit "Submit", class: 'btn btn-success' %>
+              </div>
+              <!-- ------  Review script ----------- -->
+              <script type="text/javascript">
+                $('#rating-form').raty({
+                  path: '/assets/',
+                  scoreName: 'review[rating]'
+                });
+              </script>
+            <% end %>
+            <p class="product-description">Suspendisse quos? Tempus cras iure temporibus? Eu laudantium cubilia sem sem! Repudiandae et! Massa senectus enim minim sociosqu delectus posuere.</p>
+            <p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
+            
+            
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<script>
+  $('.star-rating').raty({
+    path: '/assets/',
+    readOnly: true,
+    score: function() {
+      return $(this).attr('data-score');
+    }
+  });
+</script>
 
-<p>
-  <strong>Product:</strong>
-  <%= @order.product_id %>
-</p>
+<style type="text/css">
+  img {
+  max-width: 100%; }
 
-<p>
-  <strong>Price:</strong>
-  <%= @order.price %>
-</p>
+.preview {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column; }
+  @media screen and (max-width: 996px) {
+    .preview {
+      margin-bottom: 20px; } }
 
-<p>
-  <strong>Status:</strong>
-  <%= @order.status %>
-</p>
+.preview-pic {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1; }
 
-<p>
-  <strong>Quantity:</strong>
-  <%= @order.quantity %>
-</p>
+.preview-thumbnail.nav-tabs {
+  border: none;
+  margin-top: 15px; }
+  .preview-thumbnail.nav-tabs li {
+    width: 18%;
+    margin-right: 2.5%; }
+    .preview-thumbnail.nav-tabs li img {
+      max-width: 100%;
+      display: block; }
+    .preview-thumbnail.nav-tabs li a {
+      padding: 0;
+      margin: 0; }
+    .preview-thumbnail.nav-tabs li:last-of-type {
+      margin-right: 0; }
 
-<p>
-  <strong>First name:</strong>
-  <%= @order.first_name %>
-</p>
+.tab-content {
+  overflow: hidden; }
+  .tab-content img {
+    width: 100%;
+    -webkit-animation-name: opacity;
+            animation-name: opacity;
+    -webkit-animation-duration: .3s;
+            animation-duration: .3s; }
 
-<p>
-  <strong>Last name:</strong>
-  <%= @order.last_name %>
-</p>
+.card {
+  margin-top: 50px;
+  background: #eee;
+  padding: 3em;
+  line-height: 1.5em; }
 
-<p>
-  <strong>Email:</strong>
-  <%= @order.email %>
-</p>
+@media screen and (min-width: 997px) {
+  .wrapper {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex; } }
 
-<p>
-  <strong>Phone:</strong>
-  <%= @order.phone %>
-</p>
+.details {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column; }
 
-<p>
-  <strong>Country:</strong>
-  <%= @order.country %>
-</p>
+.colors {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1; }
 
-<p>
-  <strong>Address:</strong>
-  <%= @order.address %>
-</p>
+.product-title, .price, .sizes, .colors {
+  text-transform: UPPERCASE;
+  font-weight: bold; }
 
-<p>
-  <strong>Town:</strong>
-  <%= @order.town %>
-</p>
+.checked, .price span {
+  color: #ff9f1a; }
 
-<p>
-  <strong>Postal code:</strong>
-  <%= @order.postal_code %>
-</p>
+.product-title, .rating, .product-description, .price, .vote, .sizes {
+  margin-bottom: 15px; }
 
-<p>
-  <strong>Is active:</strong>
-  <%= @order.is_active %>
-</p>
+.product-title {
+  margin-top: 0; }
 
-<%= link_to 'Edit', edit_order_path(@order) %> |
-<%= link_to 'Back', orders_path %>
+.size {
+  margin-right: 10px; }
+  .size:first-of-type {
+    margin-left: 40px; }
+
+.color {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+  height: 2em;
+  width: 2em;
+  border-radius: 2px; }
+  .color:first-of-type {
+    margin-left: 20px; }
+
+.add-to-cart, .like {
+  background: #ff9f1a;
+  padding: 1.2em 1.5em;
+  border: none;
+  text-transform: UPPERCASE;
+  font-weight: bold;
+  color: #fff;
+  -webkit-transition: background .3s ease;
+          transition: background .3s ease; }
+  .add-to-cart:hover, .like:hover {
+    background: #b36800;
+    color: #fff; }
+
+.not-available {
+  text-align: center;
+  line-height: 2em; }
+  .not-available:before {
+    font-family: fontawesome;
+    content: "\f00d";
+    color: #fff; }
+
+.orange {
+  background: #ff9f1a; }
+
+.green {
+  background: #85ad00; }
+
+.blue {
+  background: #0076ad; }
+
+.tooltip-inner {
+  padding: 1.3em; }
+
+@-webkit-keyframes opacity {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(3);
+            transform: scale(3); }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1); } }
+
+@keyframes opacity {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(3);
+            transform: scale(3); }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1); } }
+</style>

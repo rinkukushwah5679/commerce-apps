@@ -11,6 +11,13 @@ class OrdersController < ApplicationController
   # GET /orders/1
   # GET /orders/1.json
   def show
+    @product = @order.product
+    @reviews = @product.reviews.to_a
+    @avg_rating = if @reviews.blank?
+      0
+    else
+      @product.reviews.average(:rating).round(2)
+    end
   end
 
   # GET /orders/new

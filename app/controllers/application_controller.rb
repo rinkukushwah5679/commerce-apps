@@ -27,8 +27,8 @@ def user_admin
 
   protected
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:email, :password, :password_confirmation, :role, :first_name, :last_name, :image, :is_active, :is_admin])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:email, :password, :password_confirmation, :role, :first_name, :last_name, :image, :is_active, :is_admin])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:email, :password, :password_confirmation, :role, :first_name, :last_name, :image, :is_active, :is_admin, :phone, :gender, :address])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:email, :password, :password_confirmation, :role, :first_name, :last_name, :image, :is_active, :is_admin, :phone, :gender, :address])
 
   end
 
