@@ -11,16 +11,11 @@
           </ul>
         </div>
       <% end %>
-        
       <%= form.hidden_field :cart_id, :value => @cart.id %>
       <%= form.hidden_field :user_id, :value => current_user.id %>
       <%= form.hidden_field :product_id, :value => @product.id %>
       <%= form.hidden_field :price, :value => @product.discount_price %>
 
-      <div class="field">
-        <label for="quantity">quantity</label>
-        <%= form.number_field :quantity, class: "form-control" %>
-      </div>
 
       <div class="field">
          <label for="first_name">first_name</label>
@@ -43,26 +38,12 @@
       </div>
 
       <div class="field">
-         <label for="country">country</label>
-        <%= form.text_field :country, class: "form-control" %>
-      </div>
-
-      <div class="field">
-        <label for="address">adderss</label>
-        <%= form.text_field :address, class: "form-control"  %>
-      </div>
-
-      <div class="field">
-        <label for="town">town</label>
-        <%= form.text_field :town, class: "form-control"  %>
-      </div>
-
-      <div class="field">
-        <label for="postal_code">postal_code</label>
-        <%= form.text_field :postal_code, class: "form-control"  %>
-      </div>
-
-      <article>
+        <strong for="choose_address">Choose Address</strong>
+        <% current_user.addresses.each do |ad|%>
+          <p><input type="radio" name="order[address_id]" value="<%= ad.id %>"> <%= ad.full_address %></p>
+        <% end %>
+      </div>  
+        <article>
           <% if flash[:error].present? %>
           <div id="error_explanation">
             <p><%= flash[:error] %></p>

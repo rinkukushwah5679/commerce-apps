@@ -18,15 +18,18 @@
       </button>
       <div class="collapse navbar-collapse" id="navb">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item"<% if params[:controller] == "home" && params[:action] == "index" %>"active"<% else %><% end %>><a class="nav-link" href="/">Home</a></li>
+          <li class="nav-item"><a class="nav-link <% if params[:controller] == "home" && params[:action] == "index" %>active<% else %><% end %>" href="/">Home</a></li>
           <% if user_signed_in? %>
           <% if current_user[:role] == "admin" %>
           <% end %>
           <li class="nav-item"><a class="nav-link" href="/users/sign_out"><span    class="glyphicon glyphicon-log-out"></span> Sign Out</a></li>
           <% else %>
-          <li class="nav-item <% if params[:controller] == "devise/registrations" && params[:action] == "new" %>active<% else %><% end %>"><a class="nav-link" href="/users/sign_up"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-          <li class="nav-item"<% if params[:controller] == "devise/sessions" && params[:action] == "new" %>"active"<% else %><% end %>><a class="nav-link" href="/users/sign_in"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          <li class="nav-item"><a class="nav-link <% if params[:controller] == "devise/registrations" && params[:action] == "new" %>active<% else %><% end %>" href="/users/sign_up"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li class="nav-item"><a class="nav-link <% if params[:controller] == "devise/sessions" && params[:action] == "new" %>active<% else %><% end %>" href="/users/sign_in"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
           <% end %>
+          <li class="nav-item">
+          <a class="nav-link <% if params[:controller] == "addresses" && params[:action] == "index" %>active<% else %><% end %>" href="/addresses">Your Address</a>
+          </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="" id="navbardrop" data-toggle="dropdown">
             Filter Category
@@ -164,5 +167,10 @@
 <style>
   .FlashNotice .alert{
   margin-bottom: 0px;
+  }
+  .active{
+    background-color: #007bff;
+    color: #fff !important;
+    border-radius: 5px;
   }
 </style>

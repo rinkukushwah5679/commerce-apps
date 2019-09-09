@@ -7,12 +7,10 @@ class User < ApplicationRecord
   def is_admin?
     return true if self.role =="admin"
   end
-
-  extend FriendlyId
-  friendly_id :first_name, use: :slugged
   has_many :wishlists, dependent: :destroy
   has_many :carts, dependent: :destroy
   has_many :reviews, dependent: :destroy
+  has_many :addresses, dependent: :destroy
   GENDER = {:male => "Male", :female => "Female"}
 
  
