@@ -3,7 +3,7 @@ class Product < ApplicationRecord
   has_many :reviews, dependent: :destroy
 	mount_uploader :image, AvatarUploader
      extend FriendlyId
-  friendly_id :name, use: :slugged
+  friendly_id :title, use: :slugged
 	has_many :carts, dependent: :destroy
 	validate :discount_after_price?
   def discount_after_price?
