@@ -5,6 +5,9 @@ class Product < ApplicationRecord
   extend FriendlyId
   friendly_id :title, use: [:slugged, :finders]
 	has_many :carts, dependent: :destroy
+  has_many :orders, dependent: :destroy
+
+
 	validate :discount_after_price?
 
   acts_as_paranoid
