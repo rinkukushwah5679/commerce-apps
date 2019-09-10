@@ -6,7 +6,6 @@
       <th>Price</th>
       <th>Status</th>
       <th>Quantity</th>
-      
       <th>Address</th>
       <th>Town</th>
       <th>Postal code</th>
@@ -17,12 +16,14 @@
   <tbody>
     <% @orders.each do |order| %>
       <tr>
-        
+        <% if order.product.image.present? %>
         <td><%= image_tag order.product.image_url, height: "100", width: "100"%></td>
+        <% else %>
+          <td></td>
+        <% end %>
         <td><%= order.price %></td>
         <td><%= order.status %></td>
         <td><%= order.quantity %></td>
-        
         <td><%= order.address %></td>
         <td><%= order.town %></td>
         <td><%= order.postal_code %></td>
