@@ -2,8 +2,8 @@ class Product < ApplicationRecord
 	belongs_to :category, optional: true
   has_many :reviews, dependent: :destroy
 	mount_uploader :image, AvatarUploader
-     extend FriendlyId
-  friendly_id :title, use: :slugged
+  extend FriendlyId
+  friendly_id :title, use: [:slugged, :finders]
 	has_many :carts, dependent: :destroy
 	validate :discount_after_price?
 
