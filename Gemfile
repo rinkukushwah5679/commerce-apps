@@ -72,3 +72,4 @@ gem 'ratyrate'
 gem 'wicked_pdf'
 gem 'figaro'
 gem 'stripe'
+gem "paranoia"

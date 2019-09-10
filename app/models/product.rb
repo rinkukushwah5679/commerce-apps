@@ -6,6 +6,9 @@ class Product < ApplicationRecord
   friendly_id :title, use: :slugged
 	has_many :carts, dependent: :destroy
 	validate :discount_after_price?
+
+  acts_as_paranoid
+
   def discount_after_price?
    	if discount_price.present? 
 	   	if discount_price.to_i > price.to_i 

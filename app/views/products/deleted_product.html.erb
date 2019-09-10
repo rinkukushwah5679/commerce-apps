@@ -1,0 +1,34 @@
+<div class="container">
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Image</th>
+      <th>Price</th>
+      <th>Discount price</th>
+      <th>Size</th>
+      <th>Is active</th>
+      <th>Status</th>
+      <th>Deleted At</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.title %></td>
+        <% if product.image.present? %>
+         <td><%= image_tag product.image_url, height: "100", width: "100"%></td>
+          <% else %>
+          <td></td>
+        <% end %>
+        <td><%= product.price %></td>
+        <td><%= product.discount_price%></td>
+        <td><%= product.size %></td>
+        <td><%= product.is_active %></td>
+        <td><%= product.status %></td>
+        <td><%= product.deleted_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>

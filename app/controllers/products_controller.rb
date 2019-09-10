@@ -22,6 +22,10 @@ class ProductsController < ApplicationController
   # GET /products/1/edit
   def edit
   end
+  def deleted_product
+    @products =  Product.only_deleted
+     
+  end 
 
   # POST /products
   # POST /products.json

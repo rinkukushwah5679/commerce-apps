@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   mount_uploader :image, AvatarUploader
+  extend FriendlyId
+  friendly_id :first_name, use: :slugged
   def is_admin?
     return true if self.role =="admin"
   end

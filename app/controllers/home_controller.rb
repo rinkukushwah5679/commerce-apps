@@ -22,7 +22,8 @@ class HomeController < ApplicationController
     else
       @product.reviews.average(:rating).round(2)
     end
-  end 
+  end
+  
    
   def bsupplier
   end
