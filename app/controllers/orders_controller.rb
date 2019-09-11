@@ -45,8 +45,13 @@ class OrdersController < ApplicationController
     #     price: @product.discount_price.to_i,
     #     description: 'Rails Stripe customer',
         
-    #   })  
+    #   })
+    address = Address.find(params[:order][:address_id])  
     @order = Order.new(order_params)
+    @order.country = address.country
+    @order.postal_code = address.post_code
+    @order.address = address.address
+    @order.town = @order.district = address.district
     @order.customer = customer.id
     @order.description = 'Rails Stripe customer'
 
@@ -94,6 +99,6 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:user_id, :cart_id, :product_id, :price, :status, :quantity, :first_name, :last_name, :email, :phone, :country, :address, :town, :postal_code, :is_active, :address_id)
+      params.require(:order).permit(:user_id, :cart_id, :product_id, :price, :status, :quantity, :first_name, :last_name, :email, :phone, :country, :address, :town, :postal_code, :is_active, :address_id  )
     end
 end

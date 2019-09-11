@@ -21,19 +21,8 @@
       <th></th>
     </tr>
   </thead>
-  <tfoot>
-      <th>Product</th>
-      <th>Price</th>
-      <th>Status</th>
-      <th>Quantity</th>
-      <th>Address</th>
-      <th>Town</th>
-      <th>Postal code</th>
-      <th></th>
-      </tfoot>
-
   <tbody>
-    <% @orders.each do |order| %>
+    <% current_user.orders.each do |order| %>
       <tr>
         <% if order.product.image.present? %>
         <td><%= image_tag order.product.image_url, height: "100", width: "100"%></td>

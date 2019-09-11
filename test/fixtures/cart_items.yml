@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cart_id: 1
+  product_id: 1
+  unit_price: 1.5
+  price: 1.5
+  quintey: MyString
+  is_done: false
+
+two:
+  cart_id: 1
+  product_id: 1
+  unit_price: 1.5
+  price: 1.5
+  quintey: MyString
+  is_done: false

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :cart_items
   resources :addresses
   resources :reviews
   devise_for :users
@@ -33,6 +34,8 @@ Rails.application.routes.draw do
     resources :users
     resources :products
     resources :categories
+    resources :items
+
     get 'deleted_product' => 'products#deleted_product'
   end
 
