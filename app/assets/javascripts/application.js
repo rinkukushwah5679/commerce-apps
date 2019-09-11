@@ -16,6 +16,7 @@
 //= require popper
 //= require bootstrap-sprockets
 //= require jquery.ecom
+//= require dataTables/jquery.dataTables
 
 setTimeout(function() {
     $('.FlashNotice').fadeOut('fast');

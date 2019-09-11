@@ -1,41 +1,51 @@
 <div class="container">
-<%= form_for([:admin,@user]) do |form| %>
-<% if user.errors.any? %>
-<div id="error_explanation">
-  <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
-  <ul>
-    <% user.errors.full_messages.each do |message| %>
-    <li><%= message %></li>
+  <%= form_for([:admin,@user]) do |form| %>
+    <% if user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <ul>
+        <% user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
     <% end %>
-  </ul>
-</div>
-<% end %>
-<div class="field">
-  <label for="first_name">first_name</label>
-  <%= form.text_field :first_name, class: "form-control" %>
-</div>
+    <div class="field">
+      <label for="first_name">first_name</label>
+      <%= form.text_field :first_name, class: "form-control" %>
+    </div>
 
-<div class="field">
-  <label for="last_name">larst_name</label>
-  <%= form.text_field :last_name, class: "form-control" %>
-</div>
+    <div class="field">
+      <label for="last_name">larst_name</label>
+      <%= form.text_field :last_name, class: "form-control" %>
+    </div>
 
-<div class="field">
-  <label for="role">role</label>
-  <%= form.text_field :role, class: "form-control"%>
-</div>
+    <div class="field">
+      <label for="role">role</label>
+      <%= form.text_field :role, class: "form-control"%>
+    </div>
 
-<div class="field">
-  <label for="image">image</label>
-  <%= form.file_field :image, class: "form-control" %>
-</div>
+    <div class="field">
+      <label for="image">image</label>
+      <%= form.file_field :image, class: "form-control" %>
+    </div>
 
-<div class="field">
-  <label for="slug">slug</label>
-  <%= form.text_field :slug, class: "form-control" %>
-</div>
+    <div class="field">
+      <%= form.label :email %><br />
+      <%= form.email_field :email, autofocus: true, autocomplete: "email",  class: 'form-control', :required => true %>
+    </div>
 
-<div class="actions">
-  <%= form.submit'create',class: "btn btn-success" %>
+    <div class="field">
+      <%= form.label :password %>
+      <%= form.password_field :password, autocomplete: "new-password", class: 'form-control',:required => true %>
+    </div>
+
+    <div class="field">
+      <%= form.label :password_confirmation %><br />
+      <%= form.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control',:required => true %>
+    </div>
+    <div class="actions">
+      <%= form.submit'create',class: "btn btn-success" %>
+    </div>
+  <% end %>
 </div>
-<% end %>

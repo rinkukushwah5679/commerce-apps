@@ -32,7 +32,7 @@
             <%= link_to 'Remove Product From Cart', product_remove_cart_path(cart.product), class: "add-to-cart"%>
           </div>
         </div>
-        <%= link_to "Proceed to checkout", new_cart_order_path(cart, product_id: cart.product) %>
+        <p class="btn"><%= link_to "Proceed to checkout", new_cart_order_path(cart, product_id: cart.product), class: 'add-to-cart' %></p>
       </div>
       <br>
       <br>

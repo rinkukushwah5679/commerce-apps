@@ -13,6 +13,7 @@ class User < ApplicationRecord
   has_many :carts, dependent: :destroy
   has_many :reviews, dependent: :destroy
   has_many :addresses, dependent: :destroy
+  has_many :orders, dependent: :destroy
   GENDER = {:male => "Male", :female => "Female"}
 
  

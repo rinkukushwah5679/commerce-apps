@@ -73,3 +73,4 @@ gem 'wicked_pdf'
 gem 'figaro'
 gem 'stripe'
 gem "paranoia"
+gem 'jquery-datatables-rails', '~> 3.4.0'
