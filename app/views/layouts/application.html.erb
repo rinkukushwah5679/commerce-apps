@@ -63,7 +63,7 @@
             <a class="nav-link" href="/wishlist"><i class="fa fa-heart"></i><span class="sr-only">(current)</span><span class="badge"><%= current_user.wishlists.count rescue nil%></a>
           </li>
           <li class="nav-item">
-            <a class="cart_li" href="/carts">Cart(<%= current_user.carts.count rescue nil%>)</a>
+            <a class="cart_li" href="/carts">Cart(<%= current_cart.cart_items.count rescue nil%>)</a>
           </li>
           <% else %>
           <li class="nav-item">

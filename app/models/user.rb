@@ -10,7 +10,7 @@ class User < ApplicationRecord
     return true if self.role =="admin"
   end
   has_many :wishlists, dependent: :destroy
-  has_many :carts, dependent: :destroy
+  has_one :cart
   has_many :reviews, dependent: :destroy
   has_many :addresses, dependent: :destroy
   has_many :orders, dependent: :destroy

@@ -6,6 +6,7 @@ class Product < ApplicationRecord
   friendly_id :title, use: [:slugged, :finders]
 	has_many :carts, dependent: :destroy
   has_many :orders, dependent: :destroy
+  has_many :cart_items, dependent: :destroy
 	validate :discount_after_price?
   acts_as_paranoid
   def discount_after_price?
@@ -22,4 +23,5 @@ class Product < ApplicationRecord
       "0.0"
     end
   end
+  
 end

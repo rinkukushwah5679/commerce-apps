@@ -11,19 +11,19 @@ class OrdersController < ApplicationController
   # GET /orders/1
   # GET /orders/1.json
   def show
-    @product = @order.product
-    @reviews = @product.reviews.to_a
+    # @product = @order.product\
+    @reviews = Review.last
     @avg_rating = if @reviews.blank?
       0
     else
-      @product.reviews.average(:rating).round(2)
+      Review.all.average(:rating).round(2)
     end
   end
 
   # GET /orders/new
   def new
-    @cart = Cart.find(params[:cart_id])
-    @product = Product.find(params[:product_id])
+    # @cart = Cart.find(params[:cart_id])
+    # @product = Product.find(params[:product_id])
     @order = Order.new
   end
 
@@ -34,8 +34,8 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
-    @product = Product.find(params[:order][:product_id])
-    @cart = Cart.find(params[:order][:cart_id])
+    # @product = Product.find(params[:order][:product_id])
+    # @cart = Cart.find(params[:order][:cart_id])
     customer = Stripe::Customer.create({
         email: params[:stripeEmail],
         source: params[:stripeToken],
@@ -54,9 +54,10 @@ class OrdersController < ApplicationController
     @order.town = @order.district = address.district
     @order.customer = customer.id
     @order.description = 'Rails Stripe customer'
-
+    @order.cart_id = current_cart.id
     respond_to do |format|
       if @order.save
+        current_cart.update(is_done: true)
         UserMailer.order_product(current_user).deliver_later
         format.html { redirect_to @order, notice: 'Order was successfully created.' }
         format.json { render :show, status: :created, location: @order }

@@ -1,42 +1,23 @@
-<div class="container">
-  <!-- <h3 class="h3">shopping Demo-1 </h3> -->
-  <div class="row">
-    <% current_user.carts.each do |cart| %>
-      <div class="col-md-3 col-sm-6" style="margin-bottom: 25px;">
-        <div class="product-grid">
-          <div class="product-image">
-            <a href="/product_details/<%= cart.product.id%>">
-            <% if cart.product.image.present? %>
-              <%= image_tag cart.product.image_url, class: "pic-1", style: "height:324px;width:253px"%>
-            <% else %>
-              <img class="pic-1" src="http://bestjquery.com/tutorial/product-grid/demo9/images/img-7.jpg">
-            <% end %>
-            </a>
-            <ul class="social">
-            </ul>
-            <span class="product-new-label">Sale</span>
-            <span class="product-discount-label"><%= cart.product.price.to_i > 0 ? cart.product.discount_percentage : 0 %></span>
-          </div>
-          <!-- <ul class="rating">
-            <li class="fa fa-star"></li>
-            <li class="fa fa-star"></li>
-            <li class="fa fa-star"></li>
-            <li class="fa fa-star"></li>
-            <li class="fa fa-star disable"></li>
-          </ul> -->
-          <div class="product-content">
-            <h3 class="title"><a href="#"><%= cart.product.title %></a></h3>
-            <div class="price">$<%= cart.product.try(:discount_price).to_f %>
-              <span>$<%= cart.product.try(:price).to_f %></span>
-            </div>
-            <%= link_to 'Remove Product From Cart', product_remove_cart_path(cart.product), class: "add-to-cart"%>
-          </div>
-        </div>
-        <p class="btn"><%= link_to "Proceed to checkout", new_cart_order_path(cart, product_id: cart.product), class: 'add-to-cart' %></p>
-      </div>
-      <br>
-      <br>
-    <% end %>
-  </div>
-  <br>
+<p id="notice"><%= notice %></p>
+<h1>Cart Item</h1>
+<!-- <script src="http://localhost/assets/js/ZeroClipboard.js"></script>  -->
+
+<div id="cart">
+  <%= render "cart" %>
 </div>
+
+<style type="text/css">
+  #myform {
+    text-align: center;
+    padding: 5px;
+    border: 1px dotted #ccc;
+    margin: 2%;
+}
+.qty {
+    width: 40px;
+    height: 25px;
+    text-align: center;
+}
+input.qtyplus { width:25px; height:25px;}
+input.qtyminus { width:25px; height:25px;}
+</style>

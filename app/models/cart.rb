@@ -1,5 +1,15 @@
 class Cart < ApplicationRecord
-	belongs_to :product, optional: true
-	belongs_to :user, optional: true
-	has_many :cart_items, dependent: :destroy
+		# belongs_to :product, optional: true
+		belongs_to :user, optional: true
+		has_many :cart_items, dependent: :destroy
+		has_many :orders, dependent: :destroy
+
+     def sub_total
+     	cart_items.map(&:unit_price).reject {|e| !e.present?}.sum	
+	end
+	 def quantity
+     	cart_items.map(&:quantity).sum	
+	end
+	
+
 end

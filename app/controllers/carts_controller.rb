@@ -5,10 +5,10 @@ class CartsController < ApplicationController
   # GET /carts.json
   def index
     @carts = Cart.all 
-    product_ids = current_user.carts.map(&:product_id)
+    product_ids = current_cart.cart_items.map(&:product_id)
     @products = Product.where(id: product_ids)
      if user_signed_in?
-      @carts = current_user.carts 
+      @carts = current_cart.cart_items 
      else
       redirect_to "/users/sign_in", notice: "you need to sign in or sign up"
      end  
@@ -30,6 +30,20 @@ class CartsController < ApplicationController
 
   # POST /carts
   # POST /carts.json
+  def update_cart_item_quantity
+    cart_item = CartItem.find(params[:cart_item_id])
+    if params[:type] == "increase"
+      cart_item.update(quantity: cart_item.quantity + 1)
+      cart_item.unit_price = cart_item.quantity * cart_item.price
+      cart_item.save
+    elsif params[:type] == "decrease" && cart_item.quantity != 1
+      cart_item.update(quantity: cart_item.quantity - 1)
+      cart_item.unit_price = cart_item.quantity * cart_item.price
+      cart_item.save
+    end
+  end
+
+  
   def create
     @cart = Cart.new(cart_params)
 

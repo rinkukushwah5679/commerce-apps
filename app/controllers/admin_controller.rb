@@ -9,7 +9,7 @@ class AdminController < ApplicationController
       @cat = Category.find(params[:category_id])
       @products = @cat.products
     else
-      @products = Product.all
+      @products = Product.paginate(page: params[:page], per_page: 4)
     end
   	@categories = Category.all	
   end

@@ -21,12 +21,13 @@ Rails.application.routes.draw do
     get :add_wishlist
     get :remove_wishlist
     get :add_cart
-    get :remove_cart
-    
+    get :remove_cart 
   end
-  resources :orders, only: [:index, :show, :create]
-  resources :carts do
+  get "/update_cart_item_quantity/:type/:cart_item_id" => "carts#update_cart_item_quantity", as: :update_cart_item_quantity
+
   resources :orders
+  resources :carts do
+  # resources :orders
   end
 
   namespace :admin, module: nil  do
@@ -34,8 +35,7 @@ Rails.application.routes.draw do
     resources :users
     resources :products
     resources :categories
-    resources :items
-
+    resources :orders
     get 'deleted_product' => 'products#deleted_product'
   end
 

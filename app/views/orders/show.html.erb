@@ -3,11 +3,10 @@
       <div class="container-fliud">
         <div class="wrapper row">
           <div class="preview col-md-6">
-            
             <div class="preview-pic tab-content">
               <div class="tab-pane active" id="pic-1">
-                <% if @order.product.image.present? %>
-                  <%= image_tag @order.product.image_url, style: "height:309px;width:491px"%>
+                <% if Product.last.image.present? %>
+                  <%= image_tag Product.last.image_url, style: "height:309px;width:491px"%>
                 <% else %>
                   <img src="http://bestjquery.com/tutorial/product-grid/demo9/images/img-7.jpg" />
                 <% end %>
@@ -15,16 +14,17 @@
             </div>
           </div>
           <div class="details col-md-6">
-            <h3 class="product-title"><%= @order.product.try(:title) %></h3>
+            <h3 class="product-title"><%= Product.last.try(:title) %></h3>
             <div class="rating">
               <div class='star-rating' data-score="<%= @avg_rating %>"></div>
-              <span class="review-no"><%= "#{@reviews.try(:size)}" %> reviews</span>
+              <span class="review-no"><%= "#{@reviews.try(:size)}" %>Reviews</span>
             </div>
             <%= form_for (Review.new) do |f| %>
               <% if current_user.present? %>
                 <%= f.hidden_field :user_id, value: current_user.id %>
-                <%= f.hidden_field :product_id, value: @order.product.id %>
-               <% end %>
+                <%#= f.hidden_field :product_id, value: Product.last.id %>
+               <% end %> 
+              <div class="Review"><strong><%= @avg_rating %></strong></div>
               
               <div id="rating-form" class="field col-lg-12 from-group">
                 <label>Rating</label>
@@ -45,12 +45,7 @@
                   scoreName: 'review[rating]'
                 });
               </script>
-            <% end %>
-            <p class="product-description">Suspendisse quos? Tempus cras iure temporibus? Eu laudantium cubilia sem sem! Repudiandae et! Massa senectus enim minim sociosqu delectus posuere.</p>
-            <p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
-            
-            
-            
+            <% end %>        
           </div>
         </div>
       </div>

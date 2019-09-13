@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all.paginate(page: params[:page], per_page: 8)
+    @products = Product.all.paginate(page: params[:page], per_page: 4)
     
   end
 
@@ -92,14 +92,20 @@ class ProductsController < ApplicationController
     product_ids = current_user.wishlists.map(&:product_id)
     @products = Product.where(id: product_ids)
   end
+
   def add_cart
     @product = Product.find(params[:product_id])
     if user_signed_in?
-      existing_cart = current_user.carts.where(product_id: @product.id)
-      if existing_cart.present?
-        redirect_back fallback_location: root_path, notice: "Cart is already in your cart"
+      # @cart = Cart.find_or_create_by(user_id: current_user.id)
+      cart_items = current_cart.cart_items.where(product_id: @product.id)
+      if cart_items.present?
+        item = cart_items.first
+        item.quantity = item.quantity.to_i + 1
+        item.unit_price = ((item.quantity.to_i) * @product.discount_price.to_i).to_f
+        item.save
+        redirect_back fallback_location: root_path, notice: "Product successfully added to the cart"
       else
-        current_user.carts.create(product_id: @product.id)
+        current_cart.cart_items.create(product_id: @product.id, unit_price: @product.discount_price.to_i, price: @product.discount_price.to_i)
         redirect_to carts_path, notice: "Cart has been added in to your cart"
       end
     else
@@ -109,7 +115,7 @@ class ProductsController < ApplicationController
 
   def remove_cart
     @product = Product.find(params[:product_id])
-    current_user.carts.where(product_id: @product.id).first.destroy
+    current_cart.cart_items.where(product_id: @product.id).first.destroy
     redirect_to "/carts"
   end
 

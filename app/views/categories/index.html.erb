@@ -23,13 +23,17 @@
         <% end %>
         <td><%= category.status %></td>
         <td><%= category.is_active %></td>
-        <td><%= link_to 'Show', polymorphic_path([:admin,  category]) %></td>
-        <td><%= link_to 'Edit', edit_admin_category_path(category) %></td>
-        <td><%= link_to 'Destroy', polymorphic_path([:admin,  category]), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', polymorphic_path([:admin,  category]), :class=>"btn btn-info" %></td>
+        <td><%= link_to 'Edit', edit_admin_category_path(category), :class=>"btn btn-warning" %></td>
+        <td><%= link_to 'Destroy', polymorphic_path([:admin,  category]), method: :delete, data: { confirm: 'Are you sure?' }, :class=>"btn btn-danger" %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 </div>
+<div class="pagination">
+    <%= will_paginate @products %>
+  </div>
+
 
 

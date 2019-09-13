@@ -1,6 +1,6 @@
 <%= link_to 'New Product', new_admin_product_path %>
 <div class="container">
-<table class="table table-bordered">
+<table class="table">
   <thead>
     <tr>
       <th>Title</th>
@@ -29,11 +29,14 @@
         <td><%= product.is_active %></td>
         <td><%= product.status %></td>
         <td><%= product.description %></td>
-       <td><%= link_to 'Show', polymorphic_path([:admin,  product]) %></td>
-        <td><%= link_to 'Edit', edit_admin_product_path(product) %></td>
-        <td><%= link_to 'Destroy', polymorphic_path([:admin,  product]), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+       <td><%= link_to 'Show', polymorphic_path([:admin,  product]), :class=>"btn btn-info" %></td>
+        <td><%= link_to 'Edit', edit_admin_product_path(product), :class=>"btn btn-warning" %></td>
+        <td><%= link_to 'Destroy', polymorphic_path([:admin,  product]), method: :delete, data: { confirm: 'Are you sure?' }, :class=>"btn btn-danger" %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 </div>
+<div class="pagination">
+    <%= will_paginate @products %>
+  </div>
