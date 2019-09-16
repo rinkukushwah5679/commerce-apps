@@ -3,7 +3,7 @@ class Cart < ApplicationRecord
 		belongs_to :user, optional: true
 		has_many :cart_items, dependent: :destroy
 		has_many :orders, dependent: :destroy
-
+        default_scope {order("created_at desc")}
      def sub_total
      	cart_items.map(&:unit_price).reject {|e| !e.present?}.sum	
 	end
@@ -11,5 +11,4 @@ class Cart < ApplicationRecord
      	cart_items.map(&:quantity).sum	
 	end
 	
-
 end

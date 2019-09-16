@@ -17,12 +17,13 @@
       <th>Size</th>
       <th>Status</th>
       <th>Full Address</th>
+      <th>User name</th>
       <th></th>
     </tr>
   </thead>
   
   <tbody>
-    <% current_user.orders.each do |order| %>
+    <% @orders.each do |order| %>
       <% order.cart.cart_items.each do |item| %> 
         <tr>
           <td><%= item.product.title %></td>
@@ -35,6 +36,7 @@
           <td><%= item.product.size %></td>
           <td><%= item.product.status %></td>
           <td><%= order.full_address %></td>
+          <td><%= order.user.try(:first_name) %></td>
           <td><%= link_to 'Rate & Review Product', order, class: 'btn btn-primary' %></td>
         </tr>
       <% end %>

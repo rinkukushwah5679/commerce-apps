@@ -4,7 +4,6 @@
 <table class="table">
   <thead>
     <tr>
-      <th>User</th>
       <th>Country</th>
       <th>Post code</th>
       <th>Address</th>
@@ -15,14 +14,13 @@
   <tbody>
     <% @addresses.each do |address| %>
       <tr>
-        <td><%= address.user_id %></td>
         <td><%= address.country %></td>
         <td><%= address.post_code %></td>
         <td><%= address.address %></td>
         <td><%= address.district %></td>
-        <td><%= link_to 'Show', address %></td>
-        <td><%= link_to 'Edit', edit_address_path(address) %></td>
-        <td><%= link_to 'Destroy', address, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', address, :class=>"btn btn-info" %></td>
+        <td><%= link_to 'Edit', edit_address_path(address), :class=>"btn btn-warning" %></td>
+        <td><%= link_to 'Destroy', address, method: :delete, data: { confirm: 'Are you sure?' }, :class=>"btn btn-danger" %></td>
       </tr>
     <% end %>
   </tbody>

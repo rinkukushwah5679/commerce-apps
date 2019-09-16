@@ -28,8 +28,8 @@ class ReviewsController < ApplicationController
 
     respond_to do |format|
       if @review.save
-        format.html { redirect_to @review, notice: 'Review was successfully created.' }
-        format.json { render :show, status: :created, location: @review }
+        format.html { redirect_to fallback_location: root_path, notice: 'Review was successfully created.' }
+        format.json { render :show, status: :created, location: @order }
       else
         format.html { render :new }
         format.json { render json: @review.errors, status: :unprocessable_entity }

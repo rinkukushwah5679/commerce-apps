@@ -30,6 +30,10 @@ class OrdersController < ApplicationController
   # GET /orders/1/edit
   def edit
   end
+  def order_product
+    @orders = Order.all
+    
+  end
 
   # POST /orders
   # POST /orders.json
