@@ -64,7 +64,7 @@ class OrdersController < ApplicationController
       if @order.save
         current_cart.update(is_done: true)
         UserMailer.order_product(current_user).deliver_later
-        format.html { redirect_to @order, notice: 'Order was successfully created.' }
+        format.html { redirect_to orders_path, notice: 'Order was successfully created.' }
         format.json { render :show, status: :created, location: @order }
       else
         format.html { render :new }
