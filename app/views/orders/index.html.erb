@@ -17,6 +17,7 @@
       <th>Size</th>
       <th>Status</th>
       <th>Full Address</th>
+      <th>User Name</th>
       <th></th>
     </tr>
   </thead>
@@ -31,13 +32,24 @@
           <% else %>
           <td></td>
           <% end %>
-          <td><%= item.product.price %></td>
+          <td><%= item.unit_price %> <b>(quantity: <%= item.quantity%>)</b></td>
           <td><%= item.product.size %></td>
           <td><%= item.product.status %></td>
           <td><%= order.full_address %></td>
-          <td><%= link_to 'Rate & Review Product', order, class: 'btn btn-primary' %></td>
+          <td><%= order.user.try(:first_name) %></td>
+          <td><%= link_to 'Rate & Review Product', order_path(order.id,cart_item: item.id), class: 'btn btn-primary' %></td>
         </tr>
+       <tr>
       <% end %>
+        <th></th>
+        <th></th>
+        <th><b>Total Quantity <%= order.cart.quantity%></b></th>
+        <th><b>Total Price <%= order.cart.sub_total%><b></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        </tr>
     <% end %>
   </tbody>
 </table>

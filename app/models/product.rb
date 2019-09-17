@@ -9,6 +9,7 @@ class Product < ApplicationRecord
   has_many :cart_items, dependent: :destroy
 	validate :discount_after_price?
   acts_as_paranoid
+  default_scope {order("created_at desc")}
   def discount_after_price?
    	if discount_price.present? 
 	   	if discount_price.to_i > price.to_i 

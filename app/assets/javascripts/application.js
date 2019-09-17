@@ -19,5 +19,5 @@
 //= require dataTables/jquery.dataTables
 
 setTimeout(function() {
-    $('.FlashNotice').fadeOut('fast');
+    $('.FlashNotice').fadeOut('slow');
 }, 3000);

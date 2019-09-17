@@ -101,7 +101,7 @@ class ProductsController < ApplicationController
       if cart_items.present?
         item = cart_items.first
         item.quantity = item.quantity.to_i + 1
-        item.unit_price = ((item.quantity.to_i) * @product.discount_price.to_i).to_f
+        item.price = ((item.quantity.to_i) * item.unit_price.to_i).to_f
         item.save
         redirect_back fallback_location: root_path, notice: "Product successfully added to the cart"
       else

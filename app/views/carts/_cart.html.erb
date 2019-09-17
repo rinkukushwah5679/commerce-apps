@@ -6,8 +6,8 @@
       <th>Image</th>
       <th>Category</th>
       <th>Quantity</th>
-      <th>Price</th>
       <th>Unit_Price</th>
+      <th>Price</th>
       <th colspan="4"></th>
     </tr>
   </thead>
@@ -35,8 +35,8 @@
               </div>
             </div>
           </td>
-          <td><%= cart_item.price %></td>
           <td><%= cart_item.unit_price %></td>
+          <td><%= cart_item.price %></td>
           <td><%= link_to "Remove",  product_remove_cart_path(cart_item.product.id)  %></td> 
         </div>
         </tr>

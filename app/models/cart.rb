@@ -5,7 +5,7 @@ class Cart < ApplicationRecord
 		has_many :orders, dependent: :destroy
         default_scope {order("created_at desc")}
      def sub_total
-     	cart_items.map(&:unit_price).reject {|e| !e.present?}.sum	
+     	cart_items.map(&:price).reject {|e| !e.present?}.sum	
 	end
 	 def quantity
      	cart_items.map(&:quantity).sum	

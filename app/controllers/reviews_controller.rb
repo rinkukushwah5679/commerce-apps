@@ -28,7 +28,7 @@ class ReviewsController < ApplicationController
 
     respond_to do |format|
       if @review.save
-        format.html { redirect_to fallback_location: root_path, notice: 'Review was successfully created.' }
+        format.html { redirect_back fallback_location: @order, notice: 'Review was successfully created.' }
         format.json { render :show, status: :created, location: @order }
       else
         format.html { render :new }

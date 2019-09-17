@@ -11,12 +11,13 @@ class OrdersController < ApplicationController
   # GET /orders/1
   # GET /orders/1.json
   def show
-    # @product = @order.product\
-    @reviews = Review.last
+    # @product = @order.product
+    @cart_item = CartItem.find(params[:cart_item])
+    @reviews = @cart_item.product.reviews.to_a
     @avg_rating = if @reviews.blank?
       0
     else
-      Review.all.average(:rating).round(2)
+      @cart_item.product.reviews.average(:rating).round(2)
     end
   end
 
