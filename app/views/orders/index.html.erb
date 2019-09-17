@@ -17,7 +17,6 @@
       <th>Size</th>
       <th>Status</th>
       <th>Full Address</th>
-      <th>User Name</th>
       <th></th>
     </tr>
   </thead>
@@ -36,7 +35,6 @@
           <td><%= item.product.size %></td>
           <td><%= item.product.status %></td>
           <td><%= order.full_address %></td>
-          <td><%= order.user.try(:first_name) %></td>
           <td><%= link_to 'Rate & Review Product', order_path(order.id,cart_item: item.id), class: 'btn btn-primary' %></td>
         </tr>
        <tr>
@@ -45,7 +43,6 @@
         <th></th>
         <th><b>Total Quantity <%= order.cart.quantity%></b></th>
         <th><b>Total Price <%= order.cart.sub_total%><b></th>
-        <th></th>
         <th></th>
         <th></th>
         <th></th>
