@@ -21,6 +21,7 @@ class ApplicationController < ActionController::Base
       if user_signed_in?
         if current_user.role != 'admin'
           redirect_to root_path
+          flash[:alert] = "You are not authorized to perform this action."
         else
           request.url
         end

@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
 
   def index
-    flash[:alert] = "You are not authorized to perform this action."
+    # flash[:alert] = "You are not authorized to perform this action."
 
     if params[:search].present?
      @products = Product.where("lower(title) LIKE :prefix OR lower(description) LIKE :prefix", prefix: "%#{params[:search].downcase}%").paginate(page: params[:page], per_page: 8)

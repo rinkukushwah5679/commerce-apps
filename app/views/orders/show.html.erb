@@ -17,13 +17,13 @@
             <h3 class="product-title"><%= @cart_item.product.try(:title) %></h3>
             <div class="rating">
               <div class='star-rating' data-score="<%= @avg_rating %>"></div>
-              <span class="review-no"><%= "#{@reviews.try(:size)}" %>Reviews</span>
+              <span class="review-no"><%= "(#{@cart_item.product.reviews.count})" %>Reviews</span>
             </div>
             <%= form_for (Review.new) do |f| %>
               <% if current_user.present? %>
                 <%= f.hidden_field :user_id, value: current_user.id %>
                 <%= f.hidden_field :order_id, value: @order.id %>
-                <%#= f.hidden_field :product_id, value: Product.last.id %>
+                <%= f.hidden_field :product_id, value: @cart_item.product.id %>
                <% end %> 
               <div class="Review"><strong></strong></div>
               
@@ -39,7 +39,7 @@
               <div class="field col-lg-12 from-group text-center ">
                 <%= f.submit "Submit", class: 'btn btn-success' %>
               </div>
-              <!-- ------  Review script ----------- -->
+              <!--  Review script -->
               <script type="text/javascript">
                 $('#rating-form').raty({
                   path: '/assets/',
