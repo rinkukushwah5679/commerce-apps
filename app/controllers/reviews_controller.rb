@@ -24,17 +24,28 @@ class ReviewsController < ApplicationController
   # POST /reviews
   # POST /reviews.json
   def create
-    @review = Review.new(review_params)
 
-    respond_to do |format|
-      if @review.save
-        format.html { redirect_back fallback_location: @order, notice: 'Review was successfully created.' }
-        format.json { render :show, status: :created, location: @order }
-      else
-        format.html { render :new }
-        format.json { render json: @review.errors, status: :unprocessable_entity }
-      end
+    @product = Product.find(params[:review][:product_id])
+    # @review = Review.where(product_id: @product, user_id: current_user.id)
+    if params[:review][:review_id].present?
+      review = Review.find(params[:review][:review_id])
+      review.update(review_params)
+    else
+      @review = Review.new(review_params)
+      @review.save
     end
+    redirect_back fallback_location: root_path, notice: 'Review was successfully created.'
+    # @review = Review.new(review_params)
+
+    # respond_to do |format|
+    #   if @review.save
+    #     format.html { redirect_back fallback_location: @order, notice: 'Review was successfully created.' }
+    #     format.json { render :show, status: :created, location: @order }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @review.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /reviews/1

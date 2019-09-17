@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user!
   # GET /orders
   # GET /orders.json
   def index
@@ -18,6 +18,12 @@ class OrdersController < ApplicationController
       0
     else
       @cart_item.product.reviews.average(:rating).round(2)
+    end
+
+    if current_user.reviews.where(product_id: @cart_item.product.id).any?
+      @review = current_user.reviews.where(product_id: @cart_item.product.id).first
+    else
+      @review = Review.new
     end
   end
 
