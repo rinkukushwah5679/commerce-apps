@@ -50,6 +50,8 @@
               <div class="dropdown-menu">
                 <%= link_to 'Edit profile', edit_user_registration_path, class: 'dropdown-item'%>
                 <%= link_to 'My Order', orders_path, class: 'dropdown-item'%>
+                <%= link_to 'My Favorite', favorite_path, class: 'dropdown-item'%>
+                <%= link_to 'My Wishlist', wishlist_path, class: 'dropdown-item'%>
                 <%= link_to "Logout", destroy_user_session_path, method: :delete, class: 'dropdown-item' %>
               </div>
             </li>
@@ -60,15 +62,9 @@
           </form>
           <% if user_signed_in? %>
           <li class="nav-item">
-            <a class="nav-link" href="/wishlist"><i class="fa fa-heart"></i><span class="sr-only">(current)</span><span class="badge"><%= current_user.wishlists.count rescue nil%></a>
-          </li>
-          <li class="nav-item">
             <a class="cart_li" href="/carts">Cart(<%= current_cart.cart_items.count rescue nil%>)</a>
           </li>
           <% else %>
-          <li class="nav-item">
-            <a class="nav-link" href="/users/sign_in"><i class="fa fa-heart"></i><span class="sr-only">(current)</span><span class="badge"><%= current_user.wishlists.count rescue nil%></a>
-          </li>
           <li class="nav-item">
             <a class="cart_li" href="/users/sign_in">Cart</a>
           </li>

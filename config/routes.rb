@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :cart_items
+  # resources :cart_items
   resources :addresses
   resources :reviews
   devise_for :users
@@ -16,10 +16,13 @@ Rails.application.routes.draw do
   root 'home#index'
   get 'product_details/:id' => "home#product_details", as: :product_details
   get 'category_details/:id/products' => "home#category_details", as: :category_details
-  get "wishlist" => "products#wishlist" 
+  get "wishlist" => "products#wishlist"
+  get "favorite" => "products#favorite" 
   resources :products, except: [:new, :index, :edit, :show] do
     get :add_wishlist
     get :remove_wishlist
+    get :add_favorite
+    get :remove_favorite
     get :add_cart
     get :remove_cart 
   end

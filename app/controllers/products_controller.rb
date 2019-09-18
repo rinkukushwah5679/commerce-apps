@@ -34,7 +34,7 @@ class ProductsController < ApplicationController
 
     respond_to do |format|
       if @product.save
-         format.html { redirect_to define_admin_routes({resourceName: 'Product', objectId: @product.id}), notice: 'Product was successfully created.' }
+         format.html { redirect_to admin_root_path({resourceName: 'Product', objectId: @product.id}), notice: 'Product was successfully created.' }
         format.json { render :show, status: :created, location: @product }
       else
         format.html { render :new }
@@ -48,7 +48,7 @@ class ProductsController < ApplicationController
   def update
     respond_to do |format|
       if @product.update(product_params)
-         format.html { redirect_to define_admin_routes({resourceName: 'Product', objectId: @product.id}), notice: 'Product was successfully updated.' }
+         format.html { redirect_to admin_root_path({resourceName: 'Product', objectId: @product.id}), notice: 'Product was successfully updated.' }
          format.json { render :show, status: :ok, location: @product }
       else
         format.html { render :edit }
@@ -62,7 +62,7 @@ class ProductsController < ApplicationController
   def destroy
     @product.destroy
     respond_to do |format|
-      format.html { redirect_to define_admin_routes({resourceName: 'Product'}), notice: 'Product was successfully destroyed.' }
+      format.html { redirect_to admin_root_path({resourceName: 'Product'}), notice: 'Product was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -92,6 +92,35 @@ class ProductsController < ApplicationController
     product_ids = current_user.wishlists.map(&:product_id)
     @products = Product.where(id: product_ids)
   end
+
+
+  def add_favorite
+    @product = Product.find(params[:product_id])
+    if user_signed_in?
+      existing_favorite = current_user.favorites.where(product_id: @product.id)
+      if existing_favorite.present?
+        redirect_back fallback_location: root_path, notice: "Product is already in your favorite"
+      else
+        current_user.favorites.create(product_id: @product.id)
+        redirect_to root_path, notice: "Product has been added in to your favorite"
+      end
+    else
+      redirect_to "/users/sign_in", notice: "you need to sign in or sign up"
+    end
+  end
+
+  def remove_favorite
+    @product = Product.find(params[:product_id])
+    current_user.favorites.where(product_id: @product.id).first.destroy
+    redirect_to "/favorite"
+  end
+
+  def favorite
+    product_ids = current_user.favorites.map(&:product_id)
+    @products = Product.where(id: product_ids)
+  end
+
+
 
   def add_cart
     @product = Product.find(params[:product_id])
