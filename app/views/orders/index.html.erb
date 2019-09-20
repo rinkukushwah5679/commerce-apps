@@ -1,4 +1,4 @@
-<link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.css" rel="stylesheet" />
+<!-- <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.css" rel="stylesheet" />
 <link href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.css" rel="stylesheet" />
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
@@ -6,57 +6,58 @@
 <script src="https://cdn.datatables.net/buttons/1.4.2/js/dataTables.buttons.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.html5.min.js"></script> -->
 <div class="container">
-  <table id="example" class="display nowrap" width="100%">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Image</th>
-      <th>Price</th>
-      <th>Size</th>
-      <th>Status</th>
-      <th>Full Address</th>
-      <th></th>
-    </tr>
-  </thead>
-  
-  <tbody>
-    <% current_user.orders.each do |order| %>
-      <% order.cart.cart_items.each do |item| %>
-        <% product = Product.unscoped.find(item.product_id)%>
+  <table class="table" id="example" class="display nowrap" width="100%">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Image</th>
+        <th>Price</th>
+        <th>Size</th>
+        <th>Status</th>
+        <th>Full Address</th>
+        <th></th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      <% current_user.orders.each do |order| %>
+        <% order.cart.cart_items.each do |item| %>
+          <% product = Product.unscoped.find(item.product_id)%>
+          <tr>
+            <td><%= product.title %></td>
+            <% if product.image.present? %>
+            <td><%= image_tag product.image_url, height: "100", width: "100"%></td>
+            <% else %>
+            <td></td>
+            <% end %>
+            <td><%= item.unit_price %> <b>(quantity: <%= item.quantity%>)</b></td>
+            <td><%= product.size %></td>
+            <td><%= product.status %></td>
+            <td><%= order.full_address %></td>
+            <td><%= link_to 'Rate & Review Product', order_path(order.id,cart_item: item.id), class: 'btn btn-primary' %></td>
+          </tr>
+        <% end %>
         <tr>
-          <td><%= product.title %></td>
-          <% if product.image.present? %>
-          <td><%= image_tag product.image_url, height: "100", width: "100"%></td>
+          <% if order.cart.cart_items.any? %>
+          
+            <th><b>Total Quantity <%= order.cart.quantity%></b></th>
+            <th><b>Total Price <%= order.cart.sub_total%><b></th>
           <% else %>
-          <td></td>
+            
           <% end %>
-          <td><%= item.unit_price %> <b>(quantity: <%= item.quantity%>)</b></td>
-          <td><%= product.size %></td>
-          <td><%= product.status %></td>
-          <td><%= order.full_address %></td>
-          <td><%= link_to 'Rate & Review Product', order_path(order.id,cart_item: item.id), class: 'btn btn-primary' %></td>
         </tr>
-       <tr>
       <% end %>
-        <th></th>
-        <th></th>
-        <th><b>Total Quantity <%= order.cart.quantity%></b></th>
-        <th><b>Total Price <%= order.cart.sub_total%><b></th>
-        <th></th>
-        
-        </tr>
-    <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
 
 <!-- 
 <td><%= current_cart.sub_total %></td>
 <td><%= current_cart.quantity%></td> -->
 
 </div>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
  $(document).ready(function() {
   $('#example').DataTable({
     dom: 'Bfrtip',
@@ -74,4 +75,4 @@
     }]
   });
 });
-</script>
+</script> -->
