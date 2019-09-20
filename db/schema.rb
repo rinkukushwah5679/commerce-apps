@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_18_053445) do
+ActiveRecord::Schema.define(version: 2019_09_20_075125) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,6 +111,7 @@ ActiveRecord::Schema.define(version: 2019_09_18_053445) do
     t.string "discount_price"
     t.string "slug"
     t.datetime "deleted_at"
+    t.boolean "soft_delete", default: false
     t.index ["deleted_at"], name: "index_products_on_deleted_at"
     t.index ["slug"], name: "index_products_on_slug", unique: true
   end

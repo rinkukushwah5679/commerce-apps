@@ -4,14 +4,19 @@ class CartsController < ApplicationController
   # GET /carts
   # GET /carts.json
   def index
-    @carts = Cart.all 
-    product_ids = current_cart.cart_items.map(&:product_id)
-    @products = Product.where(id: product_ids)
-     if user_signed_in?
-      @carts = current_cart.cart_items 
-     else
-      redirect_to "/users/sign_in", notice: "you need to sign in or sign up"
-     end  
+    # @carts = Cart.all 
+    # product_ids = current_cart.cart_items.map(&:product_id)
+    # @products = Product.where(id: product_ids)
+    #  if user_signed_in?
+    #   @carts = current_cart.cart_items 
+    #  else
+    #   redirect_to "/users/sign_in", notice: "you need to sign in or sign up"
+    #  end
+    current_cart.cart_items.each do |cart_item|
+      if cart_item.product.nil?
+        cart_item.destroy!
+      end
+    end 
   end
 
   # GET /carts/1

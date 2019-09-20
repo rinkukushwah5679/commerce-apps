@@ -23,17 +23,18 @@
   
   <tbody>
     <% current_user.orders.each do |order| %>
-      <% order.cart.cart_items.each do |item| %> 
+      <% order.cart.cart_items.each do |item| %>
+        <% product = Product.unscoped.find(item.product_id)%>
         <tr>
-          <td><%= item.product.title %></td>
-          <% if item.product.image.present? %>
-          <td><%= image_tag item.product.image_url, height: "100", width: "100"%></td>
+          <td><%= product.title %></td>
+          <% if product.image.present? %>
+          <td><%= image_tag product.image_url, height: "100", width: "100"%></td>
           <% else %>
           <td></td>
           <% end %>
           <td><%= item.unit_price %> <b>(quantity: <%= item.quantity%>)</b></td>
-          <td><%= item.product.size %></td>
-          <td><%= item.product.status %></td>
+          <td><%= product.size %></td>
+          <td><%= product.status %></td>
           <td><%= order.full_address %></td>
           <td><%= link_to 'Rate & Review Product', order_path(order.id,cart_item: item.id), class: 'btn btn-primary' %></td>
         </tr>

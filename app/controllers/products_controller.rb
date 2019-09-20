@@ -4,7 +4,8 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all.paginate(page: params[:page], per_page: 4)
+    # @products = Product.all.paginate(page: params[:page], per_page: 4)
+    @products = Product.where(soft_delete: false).paginate(page: params[:page], per_page: 4)
     
   end
 
@@ -24,6 +25,7 @@ class ProductsController < ApplicationController
   end
   def deleted_product
     @products =  Product.only_deleted
+    # @products = Product.where(soft_delete: true)
      
   end 
 
@@ -60,9 +62,10 @@ class ProductsController < ApplicationController
   # DELETE /products/1
   # DELETE /products/1.json
   def destroy
+    @product.update(soft_delete: true)
     @product.destroy
     respond_to do |format|
-      format.html { redirect_to admin_root_path({resourceName: 'Product'}), notice: 'Product was successfully destroyed.' }
+      format.html { redirect_to admin_root_path, notice: 'Product was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

@@ -41,7 +41,7 @@
       <div class="field">
         <strong for="choose_address">Choose Address</strong>
         <% current_user.addresses.each do |ad|%>
-          <p><input type="radio" name="order[address_id]" value="<%= ad.id %>"> <%= ad.full_address %></p>
+          <p><input type="radio" name="order[address_id]" class="choose_address" value="<%= ad.id %>"> <%= ad.full_address %></p>
         <% end %>
       </div>
       <% if current_user.addresses.any? %> 

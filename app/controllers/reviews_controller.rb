@@ -25,7 +25,7 @@ class ReviewsController < ApplicationController
   # POST /reviews.json
   def create
 
-    @product = Product.find(params[:review][:product_id])
+    @product = Product.unscoped.find(params[:review][:product_id])
     # @review = Review.where(product_id: @product, user_id: current_user.id)
     if params[:review][:review_id].present?
       review = Review.find(params[:review][:review_id])

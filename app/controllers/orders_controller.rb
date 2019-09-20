@@ -13,15 +13,16 @@ class OrdersController < ApplicationController
   def show
     # @product = @order.product
     @cart_item = CartItem.find(params[:cart_item])
-    @reviews = @cart_item.product.reviews.to_a
+    @product = Product.unscoped.find(@cart_item.product_id)
+    @reviews = @product.reviews.to_a
     @avg_rating = if @reviews.blank?
       0
     else
-      @cart_item.product.reviews.average(:rating).round(2)
+      @product.reviews.average(:rating).round(2)
     end
 
-    if current_user.reviews.where(product_id: @cart_item.product.id).any?
-      @review = current_user.reviews.where(product_id: @cart_item.product.id).first
+    if current_user.reviews.where(product_id: @product.id).any?
+      @review = current_user.reviews.where(product_id: @product.id).first
     else
       @review = Review.new
     end
@@ -51,12 +52,14 @@ class OrdersController < ApplicationController
         email: params[:stripeEmail],
         source: params[:stripeToken],
       })
-    # charge = Stripe::Order.create({
-    #     customer: customer.id,
-    #     price: @product.discount_price.to_i,
-    #     description: 'Rails Stripe customer',
+      charge = Stripe::Charge.create({
+        customer: customer.id,
+        amount: current_cart.sub_total.to_i,
+        description: 'Rails Stripe customer',
+        currency: 'usd',
         
-    #   })
+      })
+
     address = Address.find(params[:order][:address_id])  
     @order = Order.new(order_params)
     @order.country = address.country
@@ -66,6 +69,7 @@ class OrdersController < ApplicationController
     @order.customer = customer.id
     @order.description = 'Rails Stripe customer'
     @order.cart_id = current_cart.id
+    @order.price = charge.amount
     respond_to do |format|
       if @order.save
         current_cart.update(is_done: true)
