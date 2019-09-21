@@ -13,7 +13,7 @@ development:
 
 production:
   <<: *default
-  database: commerce_production
+  database: commerces_production
   username: root
   password: root
 # And be sure to use new-style password hashing:
