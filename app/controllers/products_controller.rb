@@ -78,7 +78,7 @@ class ProductsController < ApplicationController
         redirect_back fallback_location: root_path, notice: "Product is already in your wishlist"
       else
         current_user.wishlists.create(product_id: @product.id)
-        redirect_to root_path, notice: "Product has been added in to your wishlist"
+        redirect_to wishlist_path, notice: "Product has been added in to your wishlist"
       end
     else
       redirect_to "/users/sign_in", notice: "you need to sign in or sign up"

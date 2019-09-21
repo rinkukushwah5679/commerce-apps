@@ -17,7 +17,7 @@
             <h3 class="product-title"><%= @product.try(:title) %></h3>
             <div class="rating">
               <div class='star-rating' data-score="<%= @avg_rating %>"></div>
-              <span class="review-no"><%= "(#{@product.reviews.count})" %>Reviews</span>
+              <span class="review-no"><%= "(#{@product.reviews.count }Reviews)" %></span>
             </div>
             <%= form_for (Review.new) do |f| %>
               <% if current_user.present? %>
