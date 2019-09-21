@@ -10,6 +10,7 @@
       <th>Status</th>
       <th>Full Address</th>
       <th>User Name</th>
+      <th>Order Date</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -29,9 +30,11 @@
           <td><%= product.status %></td>
           <td><%= order.full_address %></td>
           <td><%= order.user.try(:first_name) %></td>
+          <td><%= order.created_at %></td>
           <td><%= link_to 'Rate & Review Product', order_path(order.id,cart_item: item.id), class: 'btn btn-primary' %></td>
         </tr>
       <% end %>
+
     <% end %>
   </tbody>
 </table>

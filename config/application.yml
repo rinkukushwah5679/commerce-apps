@@ -5,8 +5,8 @@ development:
   DATABASE_PASSWORD: root
   DATABASE_NAME: commerce_development
   DATABASE_HOST: localhost
-  STRIPE_PK: pk_test_G0qghRe6igOJBJ9ak9AsTMeu
-  STRIPE_SK: sk_test_ldilz6awkRKAKpdJ8KlUnt3h
+  STRIPE_PK: pk_test_y7BX5Y1fuZc6nxF1JWVfPtwI00Tpc342uq
+  STRIPE_SK: sk_test_XiXFxEwK318gN9JL1hWjcSO900U8clW2eG
   STRIPE_CLIENT_ID: ca_CefKAEpsiwJZKJMW6mc98sgbjIjV8dPI
 
 production:
@@ -16,6 +16,6 @@ production:
   DATABASE_PASSWORD: root
   DATABASE_NAME: commerce_production
   DATABASE_HOST: localhost
-  STRIPE_PK: pk_test_G0qghRe6igOJBJ9ak9AsTMeu
-  STRIPE_SK: sk_test_ldilz6awkRKAKpdJ8KlUnt3h
+  STRIPE_PK: pk_test_y7BX5Y1fuZc6nxF1JWVfPtwI00Tpc342uq
+  STRIPE_SK: sk_test_XiXFxEwK318gN9JL1hWjcSO900U8clW2eG
   STRIPE_CLIENT_ID: ca_CefKAEpsiwJZKJMW6mc98sgbjIjV8dPI
