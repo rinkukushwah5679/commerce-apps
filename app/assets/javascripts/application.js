@@ -17,6 +17,7 @@
 //= require bootstrap-sprockets
 //= require jquery.ecom
 //= require dataTables/jquery.dataTables
+//= require product_details
 
 setTimeout(function() {
     $('.FlashNotice').fadeOut('slow');

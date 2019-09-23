@@ -18,7 +18,7 @@ class OrdersController < ApplicationController
     @avg_rating = if @reviews.blank?
       0
     else
-      @product.reviews.average(:rating).round(2)
+      @product.reviews.average(:rating).present? ? @product.reviews.average(:rating).round(2) : 0
     end
 
     if current_user.reviews.where(product_id: @product.id).any?
