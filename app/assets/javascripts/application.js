@@ -17,8 +17,7 @@
 //= require bootstrap-sprockets
 //= require jquery.ecom
 //= require dataTables/jquery.dataTables
-//= require product_details
-
+//= require imagezoom
 setTimeout(function() {
     $('.FlashNotice').fadeOut('slow');
 }, 3000);

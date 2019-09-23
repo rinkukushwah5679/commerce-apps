@@ -36,7 +36,7 @@
             <td><%= product.size %></td>
             <td><%= product.status %></td>
             <td><%= order.full_address %></td>
-            <td><%= link_to 'Rate & Review Product', order_path(order.id,cart_item: item.id), class: 'btn btn-primary' %></td>
+            <td><%= link_to 'Rate & Review Product', order_path(order.id,cart_item: item.id), class: 'btn btn-primary', style: "color:white;" %></td>
           </tr>
         <% end %>
         <tr>

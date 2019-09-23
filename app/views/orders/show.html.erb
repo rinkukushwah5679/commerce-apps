@@ -38,7 +38,11 @@
               </div>
 
               <div class="field col-lg-12 from-group text-center ">
-                <%= f.submit "Submit", class: 'btn btn-success' %>
+                <% if @review.new_record? %>
+                  <%= f.submit "Submit", class: 'btn btn-success' %>
+                <% else %>
+                  <%= f.submit "Update", class: 'btn btn-success' %>
+                <% end %>
               </div>
               <!--  Review script -->
               <script type="text/javascript">
@@ -47,7 +51,8 @@
                   scoreName: 'review[rating]'
                 });
               </script>
-            <% end %>        
+            <% end %>
+                    
           </div>
         </div>
       </div>

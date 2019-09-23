@@ -24,7 +24,7 @@ class HomeController < ApplicationController
     @avg_rating = if @reviews.blank?
       0
     else
-      @product.reviews.average(:rating).round(2)
+      @product.reviews.average(:rating).present? ? @product.reviews.average(:rating).round(2) : 0
     end
   end
   
