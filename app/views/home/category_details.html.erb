@@ -20,19 +20,19 @@
             <span class="product-new-label">Sale</span>
             <span class="product-discount-label"><%= product.price.to_i > 0 ? product.discount_percentage : 0 %></span>
           </div>
-          <ul class="rating">
+          <!-- <ul class="rating">
             <li class="fa fa-star"></li>
             <li class="fa fa-star"></li>
             <li class="fa fa-star"></li>
             <li class="fa fa-star"></li>
             <li class="fa fa-star disable"></li>
-          </ul>
+          </ul> -->
           <div class="product-content">
             <h3 class="title"><a href="#"><%= product.title %></a></h3>
             <div class="price">$<%= product.try(:discount_price).to_f %>
               <span>$<%= product.try(:price).to_f %></span>
             </div>
-            <a class="add-to-cart" href="">+ Add To Cart</a>
+            <a class="add-to-cart" href=""></a>
           </div>
         </div>
       </div>
