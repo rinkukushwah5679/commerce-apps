@@ -3,8 +3,20 @@ class OrdersController < ApplicationController
   before_action :authenticate_user!
   # GET /orders
   # GET /orders.json
+
+  def order_pdf
+    @orders = current_user.orders
+     respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "order_pdf"   # Excluding ".pdf" extension.
+      end
+    end  
+  end
+
   def index
     @orders = Order.all
+
     # @orders = current_user.orders  
   end
 
@@ -73,7 +85,7 @@ class OrdersController < ApplicationController
     respond_to do |format|
       if @order.save
         current_cart.update(is_done: true)
-        # UserMailer.order_product(current_user).deliver_latter
+        UserMailer.order_product(current_user).deliver_later
         format.html { redirect_to orders_path, notice: 'Order was successfully created.' }
         format.json { render :show, status: :created, location: @order }
       else

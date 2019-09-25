@@ -1,0 +1,100 @@
+<section id="tabs" class="project-tab">
+  <div class="container">
+  
+    <div class="row">
+      <div class="col-md-12">
+        <nav>
+          <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link " id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Products</a>
+            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Orders</a>
+            <!-- <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Project Tab 3</a> -->
+          </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade show active2" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <table class="table" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Image</th>
+                  <th>Price</th>
+                  <th>Discount price</th>
+                  <th>Size</th>
+                  <th>Description</th>
+                  <th colspan="3"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <% @products.each do |product| %>
+                  <td><%= product.title %></td>
+                  <% if product.image.present? %>
+                  <td><%= image_tag product.image_url, height: "100", width: "100"%></td>
+                  <% else %>
+                  <td></td>
+                  <% end %>
+                  <td><%= product.price %></td>
+                  <td><%= product.discount_price%></td>
+                  <td><%= product.size %></td>
+                  <td><%= product.description %></td>
+                  <td><%= link_to 'Show', polymorphic_path([:admin,  product]), :class=>"btn btn-success", style: "color:white;" %></td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane fade active2" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <table class="table" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Image</th>
+                  <th>Price</th>
+                  <th>Size</th>
+                  <th>Full Address</th>
+                  <th>User Name</th>
+                  <th>Order Date</th>
+                  <th colspan="3"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @orders.each do |order| %>
+                <% order.cart.cart_items.each do |item| %>
+                <% product = Product.unscoped.find(item.product_id)%>
+                <tr>
+                  <td><%= product.title %></td>
+                  <% if product.image.present? %>
+                  <td><%= image_tag product.image_url, height: "100", width: "100"%></td>
+                  <% else %>
+                  <td></td>
+                  <% end %>
+                  <td><%= item.unit_price %></td>
+                  <td><%= product.size %></td>
+                  <td><%= order.full_address %></td>
+                  <td><%= order.user.try(:first_name) %></td>
+                  <td><%= order.created_at %></td>
+                </tr>
+                <% end %>
+                <tr>
+                  <% if order.cart.cart_items.any? %>
+                  <th></th>
+                  <th><b>Total Quantity <%= order.cart.quantity%></b></th>
+                  <th><b>Total Price <%= order.cart.sub_total%><b></th>
+                  <% else %>
+                  <% end %>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<style type="text/css">
+  .active2 {
+  background: white !important; }
+  .nav-tabs .nav-link.active{
+  background-color: #007bff !important; }
+</style>

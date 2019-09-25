@@ -57,7 +57,7 @@
   <div class="btn-group">
     <%#= button_to 'Place Order', order_path(count: @products.count, product_id: @products.ids), :class => "btn btn-info" %>&nbsp;&nbsp;
     <% if current_cart.cart_items.present? %>
-      <%= link_to 'Checkout',  new_order_path, :class => "btn btn-success" %>
+      <%= link_to 'Checkout',  new_order_path, :class => "btn btn-success", style: "color:white;" %>
     <% else %>
       <a href="/" class="btn btn-success">Go to Shoping</a>
     <% end %>

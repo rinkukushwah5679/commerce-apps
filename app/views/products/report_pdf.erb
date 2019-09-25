@@ -1,0 +1,18 @@
+<div class="container">
+  <table class="table">
+  <title>Order PDF</title>
+    <thead>
+      <tr>
+        <th>Order</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      <%= @orders.each do |order| %>
+        <tr>
+          <td><%= order.id %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  </div>

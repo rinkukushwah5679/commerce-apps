@@ -1,40 +1,46 @@
-
 <div class="container">
   <table class="table">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Image</th>
-      <th>Price</th>
-      <th>Size</th>
-      <th>Status</th>
-      <th>Full Address</th>
-      <th>User Name</th>
-      <th>Order Date</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @orders.each do |order| %>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Image</th>
+        <th>Price</th>
+        <th>Size</th>
+        <th>Status</th>
+        <th>Full Address</th>
+        <th>User Name</th>
+        <th>Order Date</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each do |order| %>
       <% order.cart.cart_items.each do |item| %>
-        <% product = Product.unscoped.find(item.product_id)%>
-        <tr>
-          <td><%= product.title %></td>
-          <% if product.image.present? %>
-          <td><%= image_tag product.image_url, height: "100", width: "100"%></td>
-          <% else %>
-          <td></td>
-          <% end %>
-          <td><%= item.unit_price %></td>
-          <td><%= product.size %></td>
-          <td><%= product.status %></td>
-          <td><%= order.full_address %></td>
-          <td><%= order.user.try(:first_name) %></td>
-          <td><%= order.created_at %></td>
-        </tr>
+      <% product = Product.unscoped.find(item.product_id)%>
+      <tr>
+        <td><%= product.title %></td>
+        <% if product.image.present? %>
+        <td><%= image_tag product.image_url, height: "100", width: "100"%></td>
+        <% else %>
+        <td></td>
+        <% end %>
+        <td><%= item.unit_price %></td>
+        <td><%= product.size %></td>
+        <td><%= product.status %></td>
+        <td><%= order.full_address %></td>
+        <td><%= order.user.try(:first_name) %></td>
+        <td><%= order.created_at %></td>
+      </tr>
       <% end %>
-
-    <% end %>
-  </tbody>
-</table>
+      <tr>
+        <% if order.cart.cart_items.any? %>
+        <th></th>
+        <th><b>Total Quantity <%= order.cart.quantity%></b></th>
+        <th><b>Total Price <%= order.cart.sub_total%><b></th>
+        <% else %>
+        <% end %>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>

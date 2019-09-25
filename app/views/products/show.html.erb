@@ -1,39 +1,58 @@
-
-
-<p>
-  <strong>Title:</strong>
-  <%= @product.title %>
-</p>
-
-<p>
-  <strong>Image:</strong>
-  <%= @product.image %>
-</p>
-
-<p>
-  <strong>Price:</strong>
-  <%= @product.price %>
-</p>
-
-<p>
-  <strong>Size:</strong>
-  <%= @product.size %>
-</p>
-
-<p>
-  <strong>Is active:</strong>
-  <%= @product.is_active %>
-</p>
-
-<p>
-  <strong>Status:</strong>
-  <%= @product.status %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @product.description %>
-</p>
-
-<%= link_to 'Edit', edit_admin_product_path(@product) %> |
-<%= link_to 'Back', admin_products_path %>
+<div class="container">
+<%= link_to 'Create PDF', product_report_pdf_path(@product,format: :pdf) %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Image</th>
+        <th>Price</th>
+        <th>Size</th>
+        <th>Description</th>
+        <th>Total order</th>
+      </tr>
+    </thead>
+    <tbody>
+      <td><%= @product.title %></td>
+      <td><%= image_tag @product.image_url, height: "100", width: "100"%></td>
+      <td><%= @product.discount_price %></td>
+      <td><%= @product.size %></td>
+      <td><%= @product.description %></td>
+      <td><%= @orders.count %></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+    <strong>Users Name</strong>
+    <% @orders.each_with_index do |order, index |%>
+    <%= order.user.first_name %><% unless index+1 == @orders.count %>,<% end %>
+    <% end %>
+  </p>
+</div>
+<div class="container">
+<table class="table">
+    <thead>
+      <tr>
+        <th>Product Name</th>
+        <th>Email</th>
+        <th>Order Date</th>
+        <th>Address</th>
+        <th>Total Quantity</th>
+        <th>Total Price</th>
+        <th>User Name</th>
+      </tr>
+    </thead>
+    <tbody>
+     <% @orders.each do |order| %>
+     <tr>
+      <td><%= @product.title %></td>
+      <td><%= order.user.try(:email) %></td>
+      <td><%= order.created_at %></td>
+      <td><%= order.address %></td>
+      <td><%= order.cart.quantity %></td>
+      <td><%= order.cart.sub_total %></td>
+      <td><%= order.user.try(:first_name) %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  </div>

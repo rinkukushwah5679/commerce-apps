@@ -3,6 +3,16 @@ class ProductsController < ApplicationController
 
   # GET /products
   # GET /products.json
+  def report_pdf
+    @orders = current_user.orders
+     respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "report_pdf"   # Excluding ".pdf" extension.
+      end
+    end  
+  end
+
   def index
     # @products = Product.all.paginate(page: params[:page], per_page: 4)
     @products = Product.where(soft_delete: false).paginate(page: params[:page], per_page: 4)
@@ -12,7 +22,11 @@ class ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.json
   def show
-    
+    # @count_order = CartItem.where(product_id: @product.id)
+    # @carts = Cart.where(is_done: true)
+    cart_ids = @product.cart_items.joins(:cart).where(carts:{is_done:true}).map(&:cart_id)
+    @orders = Order.where(cart_id: cart_ids)
+    # @user_id = @count_order.where(user_id: current_user.id)
   end
 
   # GET /products/new

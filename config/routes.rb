@@ -25,10 +25,14 @@ Rails.application.routes.draw do
     get :remove_favorite
     get :add_cart
     get :remove_cart 
+    get 'report_pdf' => 'products#report_pdf'
   end
   get "/update_cart_item_quantity/:type/:cart_item_id" => "carts#update_cart_item_quantity", as: :update_cart_item_quantity
 
-  resources :orders
+  get 'order_pdf' => 'orders#order_pdf'
+
+  resources :orders  
+    
   resources :carts do
   # resources :orders
   end
@@ -41,6 +45,8 @@ Rails.application.routes.draw do
     # resources :orders
     get 'deleted_product' => 'products#deleted_product'
     get 'order_product' => 'orders#order_product'
+    get 'display_report' => 'admin#display_report'
+    
   end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

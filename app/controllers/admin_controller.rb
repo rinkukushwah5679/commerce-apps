@@ -13,4 +13,9 @@ class AdminController < ApplicationController
     end
   	@categories = Category.all	
   end
+  def display_report
+    @orders = Order.all
+    @products = Product.all
+    
+  end
 end
