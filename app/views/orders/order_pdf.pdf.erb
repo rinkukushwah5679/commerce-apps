@@ -1,18 +1,52 @@
-<div class="container">
-  <table class="table">
-  <title>Order PDF</title>
-    <thead>
-      <tr>
-        <th>Order</th>
-      </tr>
-    </thead>
-    
-    <tbody>
-      <%= @orders.each do |order| %>
-        <tr>
-          <td><%= order.id %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-  </div>
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Orders PDF </title>
+    <%= stylesheet_link_tag "http://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" %>
+    <%= javascript_include_tag "http://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" %>
+
+  </head>
+  <body>
+    <div class="container">
+      <table class="table" id="example" class="display nowrap" width="100%">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Size</th>
+            <th>Status</th>
+            <th>Full Address</th>
+            <th></th>
+          </tr>
+        </thead>
+        
+        <tbody>
+          <% current_user.orders.each do |order| %>
+            <% order.cart.cart_items.each do |item| %>
+              <% product = Product.unscoped.find(item.product_id)%>
+              <tr>
+                <td><%= product.title %></td>
+                <td><%= item.unit_price %> <b>(quantity: <%= item.quantity%>)</b></td>
+                <td><%= product.size %></td>
+                <td><%= product.status %></td>
+                <td><%= order.full_address %></td>
+              </tr>
+            <% end %>
+            <tr>
+              <% if order.cart.cart_items.any? %>
+              
+                <th><b>Total Quantity <%= order.cart.quantity%></b></th>
+                <th><b>Total Price <%= order.cart.sub_total%><b></th>
+                <td>Order Date <%= order.created_at %></td>
+              <% else %>
+                
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

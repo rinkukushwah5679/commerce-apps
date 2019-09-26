@@ -10,12 +10,20 @@ class Product < ApplicationRecord
 	validate :discount_after_price?
   acts_as_paranoid
   default_scope {order("created_at desc")}
+   validate :end_date_after_start_date?
+  def end_date_after_start_date? 
+    if end_date.present? 
+      if end_date < start_date 
+        errors.add :end_date, "must be after start date"
+      end
+    end   
+  end
   def discount_after_price?
-   	if discount_price.present? 
-	   	if discount_price.to_i > price.to_i 
-	   		errors.add :discount_price, " ,full price must be less than"
-	   	end
-    end 	
+    if discount_price.present? 
+      if discount_price.to_i > price.to_i 
+        errors.add :discount_price, " ,full price must be less than"
+      end
+    end   
   end
   def discount_percentage
     if price.present? && price.to_i > 0 && discount_price.present? && discount_price.to_i > 0

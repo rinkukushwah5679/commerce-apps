@@ -1,10 +1,11 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :set_product, only: [:show, :edit, :update, :destroy, :report_pdf]
 
   # GET /products
   # GET /products.json
   def report_pdf
-    @orders = current_user.orders
+    cart_ids = @product.cart_items.joins(:cart).where(carts:{is_done:true}).map(&:cart_id)
+    @orders = Order.where(cart_id: cart_ids)
      respond_to do |format|
       format.html
       format.pdf do
@@ -25,7 +26,12 @@ class ProductsController < ApplicationController
     # @count_order = CartItem.where(product_id: @product.id)
     # @carts = Cart.where(is_done: true)
     cart_ids = @product.cart_items.joins(:cart).where(carts:{is_done:true}).map(&:cart_id)
-    @orders = Order.where(cart_id: cart_ids)
+    if params[:start_date].present? && params[:end_date].present?
+      @order = Order.where(cart_id: cart_ids)
+      @orders = @order.where(created_at: Time.parse(params[:start_date])..Time.parse(params[:end_date]))
+    else
+      @orders = Order.where(cart_id: cart_ids)
+    end
     # @user_id = @count_order.where(user_id: current_user.id)
   end
 

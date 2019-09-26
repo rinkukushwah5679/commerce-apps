@@ -17,7 +17,10 @@
 //= require bootstrap-sprockets
 //= require jquery.ecom
 //= require dataTables/jquery.dataTables
-//= require imagezoom
+//= require bootstrap-datepicker
+//= require chartkick
+//= require Chart.bundle
+
 setTimeout(function() {
     $('.FlashNotice').fadeOut('slow');
 }, 3000);

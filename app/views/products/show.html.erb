@@ -1,5 +1,6 @@
 <div class="container">
-<%= link_to 'Create PDF', product_report_pdf_path(@product,format: :pdf) %>
+ <%= line_chart @orders.group(:created_at).count %>
+<%= link_to 'Create PDF', report_pdf_product_path(@product,format: :pdf) %>
   <table class="table">
     <thead>
       <tr>
@@ -21,38 +22,67 @@
       </tr>
     </tbody>
   </table>
-  <p>
+  <!-- <p>
     <strong>Users Name</strong>
     <% @orders.each_with_index do |order, index |%>
     <%= order.user.first_name %><% unless index+1 == @orders.count %>,<% end %>
     <% end %>
-  </p>
+  </p> -->
 </div>
 <div class="container">
-<table class="table">
+  <div class="row" style="float: right; margin-bottom: 10px;">
+    <%= form_tag admin_product_path(@product), method: :get do %>
+      <%= text_field_tag 'start_date', params[:start_date], placeholder: "Enter Start Date", class: "datepicker #txtStartDate" %>
+      <%= text_field_tag 'end_date', params[:end_date], placeholder: "Enter End Date", class: "datepicker #txtEndDate" %>
+      <%= submit_tag 'Search' %>
+    <% end %>
+  </div>
+  <br>
+  <table class="table">
     <thead>
       <tr>
-        <th>Product Name</th>
+        <th>User Name</th>
         <th>Email</th>
         <th>Order Date</th>
         <th>Address</th>
         <th>Total Quantity</th>
         <th>Total Price</th>
-        <th>User Name</th>
       </tr>
     </thead>
     <tbody>
      <% @orders.each do |order| %>
      <tr>
-      <td><%= @product.title %></td>
+      <td><%= order.user.try(:first_name) %></td>
       <td><%= order.user.try(:email) %></td>
       <td><%= order.created_at %></td>
       <td><%= order.address %></td>
       <td><%= order.cart.quantity %></td>
       <td><%= order.cart.sub_total %></td>
-      <td><%= order.user.try(:first_name) %></td>
       </tr>
     <% end %>
     </tbody>
   </table>
-  </div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(".datepicker").datepicker({ 
+        format: 'd-mm-yyyy'  
+    })
+    .on("changeDate", function (e) {
+      var start_date = $("#txtStartDate").val();
+      var end_date = $("#txtEndDate").val();  
+      if (start_date != "" && end_date != ""){ 
+        start_date = new Date(start_date);
+        end_date = new Date(end_date); 
+        if (end_date < start_date){ 
+          alert("End date should be greater or equal to start Date"); 
+          $(this).val(""); 
+        } 
+      } 
+    });
+  }); 
+  $(document).ready(function(){
+    $("input").prop('required', true);
+    $("text").prop('required', false);
+  });
+</script> 

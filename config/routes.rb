@@ -25,7 +25,9 @@ Rails.application.routes.draw do
     get :remove_favorite
     get :add_cart
     get :remove_cart 
-    get 'report_pdf' => 'products#report_pdf'
+    member do
+      get :report_pdf
+    end
   end
   get "/update_cart_item_quantity/:type/:cart_item_id" => "carts#update_cart_item_quantity", as: :update_cart_item_quantity
 
