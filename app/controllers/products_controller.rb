@@ -10,8 +10,11 @@ class ProductsController < ApplicationController
       format.html
       format.pdf do
         render pdf: "report_pdf"   # Excluding ".pdf" extension.
+        # layout: "pdf",
+        # window_status: "FLAG_FOR_PDF" # Wait until window.status is equal to this string before rendering page
       end
-    end  
+    end
+    
   end
 
   def index
@@ -28,7 +31,7 @@ class ProductsController < ApplicationController
     cart_ids = @product.cart_items.joins(:cart).where(carts:{is_done:true}).map(&:cart_id)
     if params[:start_date].present? && params[:end_date].present?
       @order = Order.where(cart_id: cart_ids)
-      @orders = @order.where(created_at: Time.parse(params[:start_date])..Time.parse(params[:end_date]))
+      @orders = @order.where('created_at BETWEEN ? AND ?', params[:start_date].to_date.beginning_of_day, params[:end_date].to_date.end_of_day)
     else
       @orders = Order.where(cart_id: cart_ids)
     end

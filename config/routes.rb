@@ -33,7 +33,7 @@ Rails.application.routes.draw do
 
   get 'order_pdf' => 'orders#order_pdf'
 
-  resources :orders  
+   resources :orders
     
   resources :carts do
   # resources :orders
@@ -47,7 +47,9 @@ Rails.application.routes.draw do
     # resources :orders
     get 'deleted_product' => 'products#deleted_product'
     get 'order_product' => 'orders#order_product'
-    get 'display_report' => 'admin#display_report'
+    get 'display_report' => 'admin#display_report' 
+    get 'order' => 'admin#order'
+
     
   end
 

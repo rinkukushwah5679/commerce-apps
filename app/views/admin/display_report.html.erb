@@ -1,6 +1,5 @@
 <section id="tabs" class="project-tab">
   <div class="container">
-  
     <div class="row">
       <div class="col-md-12">
         <nav>
@@ -43,7 +42,17 @@
               </tbody>
             </table>
           </div>
+          <%#= line_chart User.group_by_day(:created_at).count %>
           <div class="tab-pane fade active2" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <%= line_chart @orders.group_by_day() { |order| order.created_at }.map { |date, orders| [date, orders.size] } %>
+            <div class="row" style="float: right; margin-bottom: 10px;">
+              <%= form_tag admin_display_report_path(@orders), method: :get do %>
+              <%= text_field_tag 'start_date', params[:start_date], placeholder: "Enter Start Date", class: "datepicker", id: "txtStartDate" %>
+              <%= text_field_tag 'end_date', params[:end_date], placeholder: "Enter End Date", class: "datepicker", id: "txtEndDate" %>
+              <%= submit_tag 'Search',class:"btn btn-success", style: "color:white;" %>
+              <% end %>
+            </div>
+            <br>
             <table class="table" cellspacing="0">
               <thead>
                 <tr>
@@ -92,6 +101,30 @@
     </div>
   </div>
 </section>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(".datepicker").datepicker({ 
+        format: 'd-mm-yyyy',
+        autoclose: true 
+    })
+    .on("changeDate", function (e) {
+      var start_date = $("#txtStartDate").val();
+      var end_date = $("#txtEndDate").val();
+      if (start_date != "" && end_date != ""){ 
+        // start_date = new Date(start_date);
+        // end_date = new Date(end_date); 
+        if (end_date < start_date){ 
+          alert("End date should be greater or equal to start Date"); 
+          $(this).val(""); 
+        } 
+      } 
+    });
+  }); 
+  $(document).ready(function(){
+    $("input").prop('required', true);
+    $("text").prop('required', false);
+  });
+</script> 
 <style type="text/css">
   .active2 {
   background: white !important; }

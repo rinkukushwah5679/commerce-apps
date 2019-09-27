@@ -77,4 +77,5 @@ gem 'jquery-datatables-rails', '~> 3.4.0'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'bootstrap-datepicker-rails'
-gem "chartkick"
+gem 'chartkick'
+gem 'groupdate'

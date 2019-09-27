@@ -1,5 +1,6 @@
 <div class="container">
-<%= link_to 'New User',new_admin_user_path %>
+ <%#= line_chart User.group_by_day(:created_at).count %>
+<%= link_to 'New User',new_admin_user_path,class:"btn btn-primary", style: "color:white;" %>
 <table class="table">
   <thead>
     <tr>
@@ -8,7 +9,6 @@
       <th>Role</th>
       <th>Image</th>
       <th>Email</th>
-      <th>Password</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -24,7 +24,6 @@
           <td></td>
         <% end %>
         <td><%= user.email %></td>
-        <td><%= user.password %></td>
         <td><%= link_to 'Show',  admin_user_path(user), :class=>"btn btn-info" %></td>
         <td><%= link_to 'Edit',  edit_admin_user_path(user), :class=>"btn btn-warning" %></td>
         <td><%= link_to 'Destroy', admin_user_path(user), method: :delete, data: { confirm: 'Are you sure?' }, :class=>"btn btn-danger" %></td>

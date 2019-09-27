@@ -1,6 +1,7 @@
+
 <div class="container">
- <%= line_chart @orders.group(:created_at).count %>
-<%= link_to 'Create PDF', report_pdf_product_path(@product,format: :pdf) %>
+  <%#= line_chart User.group_by_day(:created_at).count %>
+<%= link_to 'Create PDF', report_pdf_product_path(@product,format: :pdf),class:"btn btn-primary", style: "color:white;" %>
   <table class="table">
     <thead>
       <tr>
@@ -30,11 +31,12 @@
   </p> -->
 </div>
 <div class="container">
+  <%= line_chart @orders.group_by_day() { |order| order.created_at }.map { |date, orders| [date, orders.size] } %>
   <div class="row" style="float: right; margin-bottom: 10px;">
     <%= form_tag admin_product_path(@product), method: :get do %>
-      <%= text_field_tag 'start_date', params[:start_date], placeholder: "Enter Start Date", class: "datepicker #txtStartDate" %>
-      <%= text_field_tag 'end_date', params[:end_date], placeholder: "Enter End Date", class: "datepicker #txtEndDate" %>
-      <%= submit_tag 'Search' %>
+      <%= text_field_tag 'start_date', params[:start_date], placeholder: "Enter Start Date", class: "datepicker", id: "txtStartDate" %>
+      <%= text_field_tag 'end_date', params[:end_date], placeholder: "Enter End Date", class: "datepicker", id: "txtEndDate" %>
+      <%= submit_tag 'Search',class:"btn btn-primary", style: "color:white;" %>
     <% end %>
   </div>
   <br>
@@ -66,14 +68,15 @@
 <script type="text/javascript">
   $(document).ready(function(){
     $(".datepicker").datepicker({ 
-        format: 'd-mm-yyyy'  
+        format: 'd-mm-yyyy',
+        autoclose: true 
     })
     .on("changeDate", function (e) {
       var start_date = $("#txtStartDate").val();
-      var end_date = $("#txtEndDate").val();  
+      var end_date = $("#txtEndDate").val();
       if (start_date != "" && end_date != ""){ 
-        start_date = new Date(start_date);
-        end_date = new Date(end_date); 
+        // start_date = new Date(start_date);
+        // end_date = new Date(end_date); 
         if (end_date < start_date){ 
           alert("End date should be greater or equal to start Date"); 
           $(this).val(""); 
