@@ -29,8 +29,13 @@ class AddressesController < ApplicationController
     @address.user_id = current_user.id
     respond_to do |format|
       if @address.save
+        if params[:address][:order_address].present?
+          format.html { redirect_to new_order_path, notice: 'Address was successfully created.' }
+          format.json { render :show, status: :created, location: @address }
+        else
         format.html { redirect_to @address, notice: 'Address was successfully created.' }
         format.json { render :show, status: :created, location: @address }
+        end
       else
         format.html { render :new }
         format.json { render json: @address.errors, status: :unprocessable_entity }

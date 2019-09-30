@@ -1,24 +1,22 @@
-
-<p>
-  <strong>Title:</strong>
-  <%= @category.title %>
-</p>
-<p>
-  <strong>Description:</strong>
-  <%= @category.description %>
-</p>
-<p>
-  <strong>Image:</strong>
-  <%= @category.image %>
-</p>
-<p>
-  <strong>Status:</strong>
-  <%= @category.status %>
-</p>
-<p>
-  <strong>Is_active:</strong>
-  <%= @category.is_active %>
-</p>
-
-<%= link_to 'Edit', edit_admin_category_path(@category) %> |
-<%= link_to 'Back', admin_categories_path %>
+  <div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Image</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <td><%= @category.title %></td>
+      <td><%= @category.description %></td>
+      <td><%= image_tag @category.image_url, height: "100", width: "100"%></td>
+      <td><%= @category.created_at %></td>
+      <td><%= link_to 'Edit', edit_admin_user_path(@category), :class=>"btn btn-info" %></td>
+      <td><%= link_to 'Back', admin_categories_path, :class=>"btn btn-warning" %>
+      <td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,6 +1,5 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy, :report_pdf]
-
   # GET /products
   # GET /products.json
   def report_pdf
@@ -9,9 +8,9 @@ class ProductsController < ApplicationController
      respond_to do |format|
       format.html
       format.pdf do
-        render pdf: "report_pdf"   # Excluding ".pdf" extension.
-        # layout: "pdf",
-        # window_status: "FLAG_FOR_PDF" # Wait until window.status is equal to this string before rendering page
+        render pdf: "report_pdf",   # Excluding ".pdf" extension.
+        layout: "pdf.html",
+        window_status: "FLAG_FOR_PDF" # Wait until window.status is equal to this string before rendering page
       end
     end
     

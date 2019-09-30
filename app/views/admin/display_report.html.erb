@@ -6,7 +6,7 @@
           <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
             <a class="nav-item nav-link " id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Products</a>
             <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Orders</a>
-            <!-- <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Project Tab 3</a> -->
+            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Categories</a>
           </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
@@ -14,8 +14,8 @@
             <table class="table" cellspacing="0">
               <thead>
                 <tr>
-                  <th>Name</th>
                   <th>Image</th>
+                  <th>Name</th>
                   <th>Price</th>
                   <th>Discount price</th>
                   <th>Size</th>
@@ -26,12 +26,12 @@
               <tbody>
                 <tr>
                   <% @products.each do |product| %>
-                  <td><%= product.title %></td>
                   <% if product.image.present? %>
                   <td><%= image_tag product.image_url, height: "100", width: "100"%></td>
                   <% else %>
                   <td></td>
                   <% end %>
+                  <td><%= product.title %></td>
                   <td><%= product.price %></td>
                   <td><%= product.discount_price%></td>
                   <td><%= product.size %></td>
@@ -44,7 +44,7 @@
           </div>
           <%#= line_chart User.group_by_day(:created_at).count %>
           <div class="tab-pane fade active2" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-            <%= line_chart @orders.group_by_day() { |order| order.created_at }.map { |date, orders| [date, orders.size] } %>
+            <%= area_chart @orders.group_by_day() { |order| order.created_at }.map { |date, orders| [date, orders.size] } %>
             <div class="row" style="float: right; margin-bottom: 10px;">
               <%= form_tag admin_display_report_path(@orders), method: :get do %>
               <%= text_field_tag 'start_date', params[:start_date], placeholder: "Enter Start Date", class: "datepicker", id: "txtStartDate" %>
@@ -56,8 +56,8 @@
             <table class="table" cellspacing="0">
               <thead>
                 <tr>
-                  <th>Name</th>
                   <th>Image</th>
+                  <th>Name</th>
                   <th>Price</th>
                   <th>Size</th>
                   <th>Full Address</th>
@@ -71,12 +71,12 @@
                 <% order.cart.cart_items.each do |item| %>
                 <% product = Product.unscoped.find(item.product_id)%>
                 <tr>
-                  <td><%= product.title %></td>
                   <% if product.image.present? %>
                   <td><%= image_tag product.image_url, height: "100", width: "100"%></td>
                   <% else %>
                   <td></td>
                   <% end %>
+                  <td><%= product.title %></td>
                   <td><%= item.unit_price %></td>
                   <td><%= product.size %></td>
                   <td><%= order.full_address %></td>
@@ -91,6 +91,34 @@
                   <th><b>Total Price <%= order.cart.sub_total%><b></th>
                   <% else %>
                   <% end %>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane fade active2" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+          <%#= area_chart @categories.group_by_day() { |category| category.created_at }.map { |date, categories| [date, categories.size] } %>
+            <table class="table" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>image</th>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th>Category Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @categories.each do |category| %>
+                <tr>
+                  <% if category.image.present? %>
+                  <td><%= image_tag category.image_url, height: "100", width: "100"%></td>
+                  <% else %>
+                  <td></td>
+                  <% end %>
+                  <td><%= category.title %></td>
+                  <td><%= category.description %></td>
+                   <td><%= category.created_at %></td>
+                   <td></td>
                 </tr>
                 <% end %>
               </tbody>

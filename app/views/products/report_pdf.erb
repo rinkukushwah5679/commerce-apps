@@ -1,17 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Report PDF</title>
-  <%= stylesheet_link_tag "http://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" %>
-  <%= javascript_include_tag "http://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" %>
-  <%= wicked_pdf_javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
-<%= wicked_pdf_javascript_include_tag "https://code.jquery.com/jquery-3.2.1.min.js" %>
-<%= wicked_pdf_javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/chartkick/2.2.4/chartkick.min.js" %>
-</head>
-<body>
+
   <div class="container">
-  <%= line_chart @orders.group_by_day() { |order| order.created_at }.map { |date, orders| [date, orders.size] } %>
-  
+  <%= area_chart @orders.group_by_day() { |order| order.created_at }.map { |date, orders| [date, orders.size] }, width: "1000px", height: "500px" %>
     <table class="table">
       <thead>
         <tr>
@@ -39,5 +28,3 @@
       </tbody>
     </table>
   </div>
-</body>
-</html>

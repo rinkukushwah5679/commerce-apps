@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag wicked_pdf_asset_base64("application")  %>
+   
+    <!-- This is not working in production compiled assets. -->
+    <!-- <%= wicked_pdf_javascript_include_tag 'pdf' %> -->
+    <%= javascript_include_tag wicked_pdf_asset_base64('pdf') %>
+    <%= wicked_pdf_javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
+<%= wicked_pdf_javascript_include_tag "https://code.jquery.com/jquery-3.2.1.min.js" %>
+<%= wicked_pdf_javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/chartkick/2.2.4/chartkick.min.js" %>
+    <%#= wicked_pdf_javascript_include_tag "application" %>
+
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>

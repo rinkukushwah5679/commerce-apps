@@ -21,7 +21,6 @@
         <th></th>
       </tr>
     </thead>
-    
     <tbody>
       <% current_user.orders.each do |order| %>
         <% order.cart.cart_items.each do |item| %>
@@ -42,23 +41,21 @@
         <% end %>
         <tr>
           <% if order.cart.cart_items.any? %>
-          
             <th><b>Total Quantity <%= order.cart.quantity%></b></th>
             <th><b>Total Price <%= order.cart.sub_total%><b></th>
             <td>Order Date <%= order.created_at %></td>
           <% else %>
-            
           <% end %>
         </tr>
       <% end %>
     </tbody>
   </table>
+</div>
 
 <!-- 
 <td><%= current_cart.sub_total %></td>
 <td><%= current_cart.quantity%></td> -->
 
-</div>
 <!-- <script type="text/javascript">
  $(document).ready(function() {
   $('#example').DataTable({

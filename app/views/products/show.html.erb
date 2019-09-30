@@ -31,7 +31,7 @@
   </p> -->
 </div>
 <div class="container">
-  <%= line_chart @orders.group_by_day() { |order| order.created_at }.map { |date, orders| [date, orders.size] } %>
+  <%= area_chart @orders.group_by_day() { |order| order.created_at }.map { |date, orders| [date, orders.size] } %>
   <div class="row" style="float: right; margin-bottom: 10px;">
     <%= form_tag admin_product_path(@product), method: :get do %>
       <%= text_field_tag 'start_date', params[:start_date], placeholder: "Enter Start Date", class: "datepicker", id: "txtStartDate" %>

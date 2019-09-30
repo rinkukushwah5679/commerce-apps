@@ -16,10 +16,11 @@ class AdminController < ApplicationController
   def display_report
     if params[:start_date].present? && params[:end_date].present?
       @orders = Order.where('created_at BETWEEN ? AND ?', params[:start_date].to_date.beginning_of_day, params[:end_date].to_date.end_of_day)
-
+  
     else
      @orders = Order.all
     end
+     @categories = Category.all
      @products = Product.all
   end
 end
