@@ -16,7 +16,7 @@
     </div>
 
     <div class="field">
-      <label for="last_name">larst_name</label>
+      <label for="last_name">last_name</label>
       <%= form.text_field :last_name, class: "form-control" %>
     </div>
 
@@ -28,6 +28,15 @@
     <div class="field">
       <label for="image">image</label>
       <%= form.file_field :image, class: "form-control" %>
+    </div>
+
+    <div class="field">
+      <label for="phone">phone</label>
+      <%= form.text_field :phone, class: "form-control" %>
+    </div>
+    <div class="field">
+      <label for="address">address</label>
+      <%= form.text_field :address, class: "form-control" %>
     </div>
 
     <div class="field">
@@ -49,3 +58,9 @@
     </div>
   <% end %>
 </div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("input").prop('required', true);
+    $("text").prop('required', true);
+  });
+</script>

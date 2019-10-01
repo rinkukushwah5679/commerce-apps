@@ -54,12 +54,13 @@
     <tbody>
      <% @orders.each do |order| %>
      <tr>
+     <%# byebug %>
       <td><%= order.user.try(:first_name) %></td>
       <td><%= order.user.try(:email) %></td>
       <td><%= order.created_at %></td>
       <td><%= order.address %></td>
-      <td><%= order.cart.quantity %></td>
-      <td><%= order.cart.sub_total %></td>
+      <td><%= order.cart.cart_items.map{|m| m.product_id == @product.id ? m.quantity : 0 }.sum %></td>
+      <td><%= order.cart.cart_items.map{|m| m.product_id == @product.id ? m.price : 0 }.sum %></td>
       </tr>
     <% end %>
     </tbody>
