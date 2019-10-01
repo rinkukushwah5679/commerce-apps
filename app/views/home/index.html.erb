@@ -1,6 +1,12 @@
 
 
 <div class="container">
+<%#= form_tag products_path, :method => 'get' do %>
+  <!-- <p> -->
+    <%#= text_field_tag :search, params[:search] %>
+    <%#= submit_tag "Search", :price => nil %>
+  <!-- </p> -->
+<%# end %>
   <!-- <h3 class="h3">shopping Demo-1 </h3> -->
   <div class="row">
     <% @products.each do |product| %>
@@ -45,6 +51,7 @@
     <% end %>
   </div>
   <br>
+
   <div class="pagination">
     <%= will_paginate @products %>
   </div>

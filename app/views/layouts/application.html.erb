@@ -167,4 +167,13 @@
     color: #fff !important;
     border-radius: 5px;
   }
+  .dropdown:hover>.dropdown-menu {
+  display: block;
+}
+
+.dropdown>.dropdown-toggle:active {
+  /*Without this, clicking will make it sticky*/
+    pointer-events: none;
+}
+
 </style>

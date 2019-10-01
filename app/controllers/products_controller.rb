@@ -19,7 +19,6 @@ class ProductsController < ApplicationController
   def index
     # @products = Product.all.paginate(page: params[:page], per_page: 4)
     @products = Product.where(soft_delete: false).paginate(page: params[:page], per_page: 4)
-    
   end
 
   # GET /products/1
@@ -58,7 +57,7 @@ class ProductsController < ApplicationController
 
     respond_to do |format|
       if @product.save
-         format.html { redirect_to admin_root_path({resourceName: 'Product', objectId: @product.id}), notice: 'Product was successfully created.' }
+        format.html { redirect_to admin_root_path({resourceName: 'Product', objectId: @product.id}), notice: 'Product was successfully created.' }
         format.json { render :show, status: :created, location: @product }
       else
         format.html { render :new }

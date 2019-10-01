@@ -7,7 +7,7 @@ class HomeController < ApplicationController
      @products = Product.where("lower(title) LIKE :prefix OR lower(description) LIKE :prefix", prefix: "%#{params[:search].downcase}%").paginate(page: params[:page], per_page: 8)
     else
       @categories = Category.all
-      @products = Product.all.paginate(page: params[:page], per_page: 8)
+      @products = Product.all.paginate(page: params[:page], per_page: 4)
     # @products = Product.where(soft_delete: false).paginate(page: params[:page], per_page: 8)
 
     end
@@ -15,7 +15,7 @@ class HomeController < ApplicationController
 
   def category_details
     @category = Category.find(params[:id])
-    @products = @category.products.paginate(page: params[:page], per_page: 8) 
+    @products = @category.products.paginate(page: params[:page], per_page: 4) 
   end
 
   def product_details
